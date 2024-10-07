@@ -1,0 +1,7 @@
+{
+  "**/*.ts?(x)": [
+    "bash -c tsc --noEmit",
+    "eslint",
+    "prettier . --write"
+  ]
+}
