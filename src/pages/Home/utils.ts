@@ -4,7 +4,7 @@ export function setStreetView(callback: (coords: google.maps.LatLngLiteral) => v
   const randomLatLng = getRandomLatLng()
   const streetViewService = new google.maps.StreetViewService()
   streetViewService.getPanorama({ location: randomLatLng, radius: 500000 }, (data) => {
-    if (data?.location?.latLng) {
+    if (data?.location?.latLng && data.links?.length) {
       const position = { lat: data.location.latLng.lat(), lng: data.location.latLng.lng() }
       const element = document.getElementById('street-map')
       const map = new google.maps.Map(element!, {

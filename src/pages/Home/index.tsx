@@ -28,6 +28,7 @@ export default function Home() {
     timerInterval.current = setInterval(() => {
       setTimer((timer) => {
         if (timer === 0) {
+          setStreetView(setCoordinates)
           setRound((round) => round + 1)
           return TIME
         }
