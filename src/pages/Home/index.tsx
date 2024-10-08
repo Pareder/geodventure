@@ -1,73 +1,70 @@
-import { useEffect, useState } from 'react'
-import { GoogleMap, StreetViewPanorama, useJsApiLoader } from '@react-google-maps/api'
-import { getRandomLatLng } from 'common/utils/randomHelpers'
+import { useEffect, useRef, useState } from 'react'
+import { APIProvider } from '@vis.gl/react-google-maps'
+import { secondsToTime } from 'common/utils/time'
+import { TIME } from './consts'
+import { calculateScore, setStreetView } from './utils'
+import SmallMap from './SmallMap'
 import styles from './Home.module.css'
 
-const containerStyle = {
-  width: '100%',
-  height: '100%',
-}
-
-function checkStreetView(callback: (coords: google.maps.LatLng | google.maps.LatLngLiteral) => void) {
-  const randomLatLng = getRandomLatLng()
-  const streetViewService = new google.maps.StreetViewService()
-  streetViewService.getPanorama({ location: randomLatLng, radius: 500000 }, (data) => {
-    if (data?.location?.latLng) {
-      callback(data.location.latLng)
-      return
-    }
-
-    checkStreetView(callback)
-  })
-}
-
 export default function Home() {
-  const [coordinates, setCoordinates] = useState<google.maps.LatLng | google.maps.LatLngLiteral>()
-  const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY,
-  })
+  const [round, setRound] = useState(1)
+  const [timer, setTimer] = useState(TIME)
+  const [score, setScore] = useState(0)
+  const [coordinates, setCoordinates] = useState<google.maps.LatLngLiteral>()
+  const timerInterval = useRef<NodeJS.Timeout>()
+  const pauseTimeout = useRef<NodeJS.Timeout>()
 
-  useEffect(() => {
-    if (!isLoaded) {
-      return
-    }
-
-    checkStreetView(setCoordinates)
-  }, [isLoaded])
-
-  if (!isLoaded) {
-    return null
+  const handleClick = (distance: number) => {
+    setScore((score) => score + calculateScore(distance))
+    clearInterval(timerInterval.current)
+    pauseTimeout.current = setTimeout(() => {
+      setStreetView(setCoordinates)
+      setRound((round) => round + 1)
+      setTimer(TIME)
+    }, 3000)
   }
 
+  useEffect(() => {
+    timerInterval.current = setInterval(() => {
+      setTimer((timer) => {
+        if (timer === 0) {
+          setRound((round) => round + 1)
+          return TIME
+        }
+
+        return timer - 1
+      })
+    }, 1000)
+
+    return () => {
+      clearInterval(timerInterval.current)
+      clearTimeout(pauseTimeout.current)
+    }
+  }, [round])
+
   return (
-    <div className={styles.wrapper}>
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={coordinates}
-        zoom={10}
-        options={{
-          fullscreenControl: false,
-          rotateControl: false,
-          scaleControl: false,
-          zoomControl: false,
-          mapTypeControl: false,
-          streetViewControl: false,
-        }}
-      >
-        {coordinates && (
-          <StreetViewPanorama
-            key={`${coordinates.lat}-${coordinates.lng}`}
-            /* @ts-expect-error: Wrong prop name in library */
-            position={coordinates}
-            visible
-            options={{
-              addressControl: false,
-              // enableCloseButton: false,
-            }}
-          />
-        )}
-      </GoogleMap>
-    </div>
+    <APIProvider
+      apiKey={import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY}
+      onLoad={() => setStreetView(setCoordinates)}
+    >
+      <div className={styles.wrapper}>
+        <div className={styles.info}>
+          <span className={styles.round}>Round {round}</span>
+          <br />
+          <span className={styles.time}>{secondsToTime(timer)}</span>
+          <br />
+          <span className={styles.score}>Score: {score}</span>
+        </div>
+        <div
+          id="street-map"
+          className={styles.mainMap}
+        />
+        <SmallMap
+          key={round}
+          coordinates={coordinates}
+          onClick={handleClick}
+        />
+      </div>
+    </APIProvider>
   )
 }
