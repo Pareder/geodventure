@@ -1,5 +1,6 @@
 import { FormEvent, useState } from 'react'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { useSnackbar } from 'notistack'
 import { NavLink } from 'react-router-dom'
 import Button from 'common/components/Button'
 import Input from 'common/components/Input'
@@ -10,12 +11,15 @@ export default function Signup() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [repeatPassword, setRepeatPassword] = useState('')
+  const { enqueueSnackbar } = useSnackbar()
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     if (!email || !password || !repeatPassword || password !== repeatPassword) return
 
-    createUserWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, email, password).then(() => {
+      enqueueSnackbar('Account created', { variant: 'success' })
+    })
   }
 
   return (

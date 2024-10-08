@@ -1,5 +1,6 @@
 import { FormEvent, useState } from 'react'
 import { signInWithEmailAndPassword } from 'firebase/auth'
+import { useSnackbar } from 'notistack'
 import { NavLink } from 'react-router-dom'
 import Button from 'common/components/Button'
 import Input from 'common/components/Input'
@@ -9,12 +10,15 @@ import styles from './Login.module.css'
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const { enqueueSnackbar } = useSnackbar()
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     if (!email || !password) return
 
-    signInWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(auth, email, password).then(() => {
+      enqueueSnackbar('Logged in', { variant: 'success' })
+    })
   }
 
   return (
