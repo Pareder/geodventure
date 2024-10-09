@@ -2,6 +2,7 @@ import { createBrowserRouter, Navigate } from 'react-router-dom'
 import CheckAccess, { access } from './common/access'
 import AppLayout from './layouts/AppLayout'
 import AuthLayout from './layouts/AuthLayout'
+import ForgotPassword from './pages/auth/ForgotPassword'
 import Login from './pages/auth/Login'
 import Signup from './pages/auth/Signup'
 import Game from './pages/Game'
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: 'signup',
         element: <Signup />,
+      },
+      {
+        path: 'forgot-password',
+        element: <ForgotPassword />,
       },
     ],
   },
