@@ -2,6 +2,7 @@ import { FormEvent, useState } from 'react'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { useSnackbar } from 'notistack'
 import { NavLink } from 'react-router-dom'
+import Alert from 'common/components/Alert'
 import Button from 'common/components/Button'
 import Input from 'common/components/Input'
 import { auth } from 'common/services/firebase'
@@ -11,6 +12,7 @@ export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setLoading] = useState(false)
+  const [isError, setError] = useState(false)
   const { enqueueSnackbar } = useSnackbar()
 
   const handleSubmit = (e: FormEvent) => {
@@ -18,9 +20,13 @@ export default function Login() {
     if (!email || !password) return
 
     setLoading(true)
+    setError(false)
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         enqueueSnackbar('Logged in', { variant: 'success' })
+      })
+      .catch(() => {
+        setError(true)
       })
       .finally(() => setLoading(false))
   }
@@ -52,6 +58,14 @@ export default function Login() {
         <div className={styles.field}>
           <NavLink to="/auth/forgot-password">Forgot password?</NavLink>
         </div>
+        {isError && (
+          <Alert
+            severity="error"
+            className={styles.field}
+          >
+            Invalid email or password
+          </Alert>
+        )}
         <Button
           type="submit"
           fullWidth

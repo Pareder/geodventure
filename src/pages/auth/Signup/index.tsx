@@ -2,6 +2,7 @@ import { FormEvent, useState } from 'react'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { useSnackbar } from 'notistack'
 import { NavLink } from 'react-router-dom'
+import Alert from 'common/components/Alert'
 import Button from 'common/components/Button'
 import Input from 'common/components/Input'
 import { auth } from 'common/services/firebase'
@@ -13,6 +14,7 @@ export default function Signup() {
   const [password, setPassword] = useState('')
   const [repeatPassword, setRepeatPassword] = useState('')
   const [isLoading, setLoading] = useState(false)
+  const [isError, setError] = useState(false)
   const { enqueueSnackbar } = useSnackbar()
 
   const handleSubmit = (e: FormEvent) => {
@@ -20,10 +22,14 @@ export default function Signup() {
     if (!nickname || !email || !password || !repeatPassword || password !== repeatPassword) return
 
     setLoading(true)
+    setError(false)
     createUserWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {
         updateProfile(user, { displayName: nickname })
         enqueueSnackbar('Account created', { variant: 'success' })
+      })
+      .catch(() => {
+        setError(true)
       })
       .finally(() => setLoading(false))
   }
@@ -72,6 +78,14 @@ export default function Signup() {
           className={styles.field}
           onChange={(e) => setRepeatPassword(e.target.value)}
         />
+        {isError && (
+          <Alert
+            severity="error"
+            className={styles.field}
+          >
+            Something went wrong
+          </Alert>
+        )}
         <Button
           type="submit"
           fullWidth
