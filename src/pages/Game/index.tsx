@@ -5,7 +5,7 @@ import StreetMap from 'common/components/StreetMap'
 import { setStreetView } from 'common/components/StreetMap/utils'
 import { secondsToTime } from 'common/utils/time'
 import { MAX_ROUNDS, TIME } from './consts'
-import { calculateScore } from './utils'
+import { calculateScore, saveScore } from './utils'
 import SmallMap from './SmallMap'
 import styles from './Game.module.css'
 
@@ -18,10 +18,11 @@ export default function Game() {
   const timerInterval = useRef<NodeJS.Timeout>()
   const pauseTimeout = useRef<NodeJS.Timeout>()
 
-  const increaseRound = () => {
+  const increaseRound = (newScore?: number) => {
     setRound((round) => {
       if (round === MAX_ROUNDS) {
         setFinal(true)
+        saveScore(newScore || score)
         return round
       }
 
@@ -31,10 +32,11 @@ export default function Game() {
   }
 
   const handleClick = (distance: number) => {
-    setScore((score) => score + calculateScore(distance))
+    const newScore = score + calculateScore(distance)
+    setScore(newScore)
     clearInterval(timerInterval.current)
     pauseTimeout.current = setTimeout(() => {
-      increaseRound()
+      increaseRound(newScore)
       setTimer(TIME)
     }, 3000)
   }
