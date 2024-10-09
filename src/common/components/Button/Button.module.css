@@ -1,14 +1,46 @@
 .button {
   padding: 12px 16px;
   border-radius: 8px;
-  background-color: #6dd5fa;
   font-size: 16px;
+  line-height: 1.5;
   font-weight: 700;
+  color: #000000;
+  text-decoration: none;
   border: none;
   cursor: pointer;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.primary {
+  background-color: #6dd5fa;
+  color: #000000;
   transition: background-color 0.3s;
-  &:hover:not(:disabled) {
+
+  &:hover:not(:disabled),
+  &:disabled {
     background-color: #54a7c0;
+  }
+}
+
+.secondary {
+  background-color: #ffffff;
+  color: #6dd5fa;
+  outline: 1px solid #6dd5fa;
+  transition:
+    color 0.3s,
+    outline-color 0.3s;
+
+  &:hover:not(:disabled),
+  &:disabled {
+    color: #54a7c0;
+    outline-color: #54a7c0;
   }
 }
 

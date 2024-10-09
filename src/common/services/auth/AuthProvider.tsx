@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useState } from 'react'
-import { onAuthStateChanged } from 'firebase/auth'
+import { onAuthStateChanged, User } from 'firebase/auth'
 import { auth } from '../firebase'
 import AuthContext from './AuthContext'
 
@@ -8,13 +8,13 @@ type AuthProviderProps = {
 }
 
 export default function AuthProvider({ children }: AuthProviderProps) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [user, setUser] = useState<User | null>(null)
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      setIsAuthenticated(!!user)
+    return onAuthStateChanged(auth, (user) => {
+      setUser(user)
     })
   }, [])
 
-  return <AuthContext.Provider value={{ isAuthenticated }}>{children}</AuthContext.Provider>
+  return <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
 }

@@ -48,24 +48,22 @@ export default function Home() {
       apiKey={import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY}
       onLoad={() => setStreetView(setCoordinates)}
     >
-      <div className={styles.wrapper}>
-        <div className={styles.info}>
-          <span className={styles.round}>Round {round}</span>
-          <br />
-          <span className={styles.time}>{secondsToTime(timer)}</span>
-          <br />
-          <span className={styles.score}>Score: {score}</span>
-        </div>
-        <div
-          id="street-map"
-          className={styles.mainMap}
-        />
-        <SmallMap
-          key={round}
-          coordinates={coordinates}
-          onClick={handleClick}
-        />
+      <div className={styles.info}>
+        <span className={styles.round}>Round {round}</span>
+        <br />
+        <span className={styles.time}>{secondsToTime(timer)}</span>
+        <br />
+        <span className={styles.score}>Score: {score}</span>
       </div>
+      <div
+        id="street-map"
+        className={styles.mainMap}
+      />
+      <SmallMap
+        key={round}
+        coordinates={coordinates}
+        onClick={handleClick}
+      />
     </APIProvider>
   )
 }

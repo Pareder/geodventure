@@ -10,15 +10,19 @@ import styles from './Login.module.css'
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isLoading, setLoading] = useState(false)
   const { enqueueSnackbar } = useSnackbar()
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     if (!email || !password) return
 
-    signInWithEmailAndPassword(auth, email, password).then(() => {
-      enqueueSnackbar('Logged in', { variant: 'success' })
-    })
+    setLoading(true)
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        enqueueSnackbar('Logged in', { variant: 'success' })
+      })
+      .finally(() => setLoading(false))
   }
 
   return (
@@ -49,6 +53,7 @@ export default function Login() {
           type="submit"
           fullWidth
           className={styles.field}
+          disabled={isLoading}
         >
           Login
         </Button>

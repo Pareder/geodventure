@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { useSnackbar } from 'notistack'
 import { NavLink } from 'react-router-dom'
 import Button from 'common/components/Button'
@@ -8,24 +8,40 @@ import { auth } from 'common/services/firebase'
 import styles from './Signup.module.css'
 
 export default function Signup() {
+  const [nickname, setNickname] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [repeatPassword, setRepeatPassword] = useState('')
+  const [isLoading, setLoading] = useState(false)
   const { enqueueSnackbar } = useSnackbar()
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
-    if (!email || !password || !repeatPassword || password !== repeatPassword) return
+    if (!nickname || !email || !password || !repeatPassword || password !== repeatPassword) return
 
-    createUserWithEmailAndPassword(auth, email, password).then(() => {
-      enqueueSnackbar('Account created', { variant: 'success' })
-    })
+    setLoading(true)
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(({ user }) => {
+        updateProfile(user, { displayName: nickname })
+        enqueueSnackbar('Account created', { variant: 'success' })
+      })
+      .finally(() => setLoading(false))
   }
 
   return (
     <>
       <h1>Sign Up</h1>
       <form onSubmit={handleSubmit}>
+        <Input
+          id="nickname"
+          label="Nickname"
+          type="text"
+          value={nickname}
+          required
+          placeholder="Nickname"
+          className={styles.field}
+          onChange={(e) => setNickname(e.target.value)}
+        />
         <Input
           id="email-address"
           label="Email address"
@@ -60,6 +76,7 @@ export default function Signup() {
           type="submit"
           fullWidth
           className={styles.field}
+          disabled={isLoading}
         >
           Sign up
         </Button>

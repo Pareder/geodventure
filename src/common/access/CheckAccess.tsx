@@ -10,10 +10,10 @@ type Props = {
 }
 
 export default function CheckAccess({ access, rule = 'some', fallback, children }: Props) {
-  const { isAuthenticated } = useAuth()
+  const { user } = useAuth()
   const level = useMemo(
-    () => new Set([accesses.F_PUBLIC, isAuthenticated ? accesses.F_PROTECTED : accesses.F_UNAUTHORIZED]),
-    [isAuthenticated],
+    () => new Set([accesses.F_PUBLIC, user ? accesses.F_PROTECTED : accesses.F_UNAUTHORIZED]),
+    [user],
   )
 
   return [access].flat()[rule]((a) => level.has(a)) ? children : fallback
