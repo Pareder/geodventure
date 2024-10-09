@@ -1,6 +1,6 @@
 import { getRandomLatLng } from 'common/utils/randomHelpers'
 
-export function setStreetView(callback: (coords: google.maps.LatLngLiteral) => void) {
+export function setStreetView(callback?: (coords: google.maps.LatLngLiteral) => void) {
   const randomLatLng = getRandomLatLng()
   const streetViewService = new google.maps.StreetViewService()
   streetViewService.getPanorama({ location: randomLatLng, radius: 500000 }, (data) => {
@@ -13,19 +13,13 @@ export function setStreetView(callback: (coords: google.maps.LatLngLiteral) => v
       const panorama = new google.maps.StreetViewPanorama(element!, {
         position,
         addressControl: false,
+        fullscreenControl: false,
       })
       map.setStreetView(panorama)
-      callback(position)
+      callback?.(position)
       return
     }
 
     setStreetView(callback)
   })
-}
-
-export function calculateScore(distance: number) {
-  const scalingFactor = 5000000
-  const maxScore = 10000
-  const score = maxScore * Math.exp(-distance / scalingFactor)
-  return Math.round(score)
 }

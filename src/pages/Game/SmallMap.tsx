@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { AdvancedMarker, Map, MapMouseEvent, Pin, useMap } from '@vis.gl/react-google-maps'
 import { formatDistance } from 'common/utils/distance'
 import { COORDINATES } from './consts'
-import styles from './Home.module.css'
+import styles from './Game.module.css'
 
 type SmallMapProps = {
   coordinates?: google.maps.LatLngLiteral
@@ -43,9 +43,9 @@ export default function SmallMap({ coordinates, onClick }: SmallMapProps) {
         <>
           <AdvancedMarker position={coordinates}>
             <Pin
-              background="#22ccff"
-              borderColor="#1e89a1"
-              glyphColor="#0f677a"
+              background="#22ff64"
+              borderColor="#1ea14a"
+              glyphColor="#0f7a2f"
             />
           </AdvancedMarker>
           <AdvancedMarker position={clickedCoordinates}>

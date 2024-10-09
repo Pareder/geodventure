@@ -13,11 +13,12 @@ type LinkProps = LinkHTMLAttributes<HTMLAnchorElement> & {
 
 type Props = (ButtonProps | LinkProps) & {
   variant?: 'primary' | 'secondary'
+  size?: 'medium' | 'small'
   fullWidth?: boolean
 }
 
-export default function Button({ variant = 'primary', fullWidth, to, className, ...props }: Props) {
-  const classNames = cx(styles.button, styles[variant], fullWidth && styles.fullWidth, className)
+export default function Button({ variant = 'primary', size = 'medium', fullWidth, to, className, ...props }: Props) {
+  const classNames = cx(styles.button, styles[variant], styles[size], fullWidth && styles.fullWidth, className)
 
   if (to) {
     return (

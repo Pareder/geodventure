@@ -4,6 +4,7 @@ import AppLayout from './layouts/AppLayout'
 import AuthLayout from './layouts/AuthLayout'
 import Login from './pages/auth/Login'
 import Signup from './pages/auth/Signup'
+import Game from './pages/Game'
 import Home from './pages/Home'
 
 const router = createBrowserRouter([
@@ -12,7 +13,7 @@ const router = createBrowserRouter([
     element: (
       <CheckAccess
         access={access.F_UNAUTHORIZED}
-        fallback={<Navigate to="/game" />}
+        fallback={<Navigate to="/" />}
       >
         <AuthLayout />
       </CheckAccess>
@@ -39,16 +40,16 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Navigate to="/game" />,
+        element: <Home />,
       },
       {
         path: 'game',
         element: (
           <CheckAccess
             access={access.F_PROTECTED}
-            fallback={<Navigate to="/auth" />}
+            fallback={<Navigate to="/" />}
           >
-            <Home />
+            <Game />
           </CheckAccess>
         ),
       },

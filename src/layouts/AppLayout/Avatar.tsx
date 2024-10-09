@@ -34,6 +34,7 @@ export default function Avatar() {
           <hr className={styles.divider} />
           <Button
             variant="secondary"
+            size="small"
             fullWidth
             onClick={() => signOut(auth)}
           >
