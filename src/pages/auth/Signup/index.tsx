@@ -6,8 +6,9 @@ import Alert from 'common/components/Alert'
 import Button from 'common/components/Button'
 import Input from 'common/components/Input'
 import { auth } from 'common/services/firebase'
-import styles from './Signup.module.css'
+import createUser from '../utils/createUser'
 import GoogleSignup from '../components/GoogleSignup'
+import styles from './Signup.module.css'
 
 export default function Signup() {
   const [nickname, setNickname] = useState('')
@@ -27,6 +28,7 @@ export default function Signup() {
     createUserWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {
         updateProfile(user, { displayName: nickname })
+        createUser(user.uid, nickname)
         enqueueSnackbar('Account created', { variant: 'success' })
       })
       .catch(() => {

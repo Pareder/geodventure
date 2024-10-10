@@ -12,5 +12,6 @@ export function saveScore(score: number) {
   addDoc(collection(firestore, 'games'), {
     user: auth.currentUser?.uid,
     score,
+    date: Date.now(),
   })
 }
