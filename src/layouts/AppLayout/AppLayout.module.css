@@ -9,7 +9,7 @@
 .content {
   position: relative;
   flex-grow: 1;
-  overflow: hidden;
+  overflow: hidden auto;
 }
 
 .header {
@@ -40,20 +40,11 @@
   gap: var(--sizing-1);
 }
 
-.avatar {
+.menu {
   position: relative;
 }
 
-.user {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  font-weight: 700;
-  border-radius: 50%;
-  background-color: var(--color-blue-100);
+.avatar {
   cursor: pointer;
 }
 

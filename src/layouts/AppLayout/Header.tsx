@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useAuth } from 'common/services/auth'
 import Button from 'common/components/Button'
-import Avatar from './Avatar'
+import Menu from './Menu.tsx'
 import styles from './AppLayout.module.css'
 
 const logo = new URL('/logo.svg', import.meta.url).href
@@ -25,7 +25,7 @@ export default function Header() {
       </Link>
       <div className={styles.right}>
         {user ? (
-          <Avatar />
+          <Menu />
         ) : (
           <>
             <Button
