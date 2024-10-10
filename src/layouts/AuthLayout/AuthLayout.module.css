@@ -1,16 +1,16 @@
 .wrapper {
   min-height: 100vh;
-  padding: 100px 24px;
-  background: #2980b9;
-  background: linear-gradient(to bottom, #ffffff, #6dd5fa, #2980b9);
+  padding: var(--sizing-10) var(--sizing-3);
+  background: var(--color-blue-500);
+  background: linear-gradient(to bottom, var(--color-white), var(--color-blue-100), var(--color-blue-500));
 }
 
 .content {
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
-  padding: 24px;
-  background-color: #ffffff;
-  border-radius: 16px;
-  box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
+  padding: var(--sizing-3);
+  background-color: var(--color-white);
+  border-radius: var(--radius-m);
+  box-shadow: var(--box-shadow);
 }

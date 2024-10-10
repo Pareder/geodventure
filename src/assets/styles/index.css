@@ -3,8 +3,103 @@
   font-size: 16px;
   line-height: 1.625;
   font-weight: 400;
+  color: var(--color-grey-900);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Sizes */
+  --sizing-nil: 0;
+  --sizing-025: 2px;
+  --sizing-050: 4px;
+  --sizing-1: 8px;
+  --sizing-2: 16px;
+  --sizing-3: 24px;
+  --sizing-4: 32px;
+  --sizing-5: 40px;
+  --sizing-6: 48px;
+  --sizing-7: 56px;
+  --sizing-8: 64px;
+  --sizing-9: 72px;
+  --sizing-10: 80px;
+
+  /* Border radius */
+  --radius-nil: 0;
+  --radius-xxs: 2px;
+  --radius-xs: 4px;
+  --radius-s: 8px;
+  --radius-m: 16px;
+  --radius-l: 24px;
+  --radius-xl: 32px;
+  --radius-xxl: 40px;
+
+  /* Colors */
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --color-green-25: #f1faf4;
+  --color-green-50: #e4f5ea;
+  --color-green-100: #bfe6cb;
+  --color-green-200: #95d6ab;
+  --color-green-300: #67c68a;
+  --color-green-400: #40ba71;
+  --color-green-500: #00ae58;
+  --color-green-600: #009f4e;
+  --color-green-700: #008d42;
+  --color-green-800: #007c37;
+  --color-green-900: #005c23;
+
+  --color-red-25: #fff5f6;
+  --color-red-50: #ffebed;
+  --color-red-100: #ffcdd0;
+  --color-red-200: #ee9a96;
+  --color-red-300: #e3736e;
+  --color-red-400: #eb5549;
+  --color-red-500: #ef472d;
+  --color-red-600: #e03d2d;
+  --color-red-700: #cf3327;
+  --color-red-800: #c22c20;
+  --color-red-900: #b32114;
+
+  --color-blue-25: #f1f8ff;
+  --color-blue-50: #e4f2ff;
+  --color-blue-100: #bddeff;
+  --color-blue-200: #93caff;
+  --color-blue-300: #68b5ff;
+  --color-blue-400: #49a4ff;
+  --color-blue-500: #3495ff;
+  --color-blue-600: #3686f6;
+  --color-blue-700: #3573e2;
+  --color-blue-800: #3362cf;
+  --color-blue-900: #3042af;
+
+  --color-yellow-25: #fffbf0;
+  --color-yellow-50: #fff8e1;
+  --color-yellow-100: #ffebb3;
+  --color-yellow-200: #ffdf82;
+  --color-yellow-300: #ffd350;
+  --color-yellow-400: #ffc82b;
+  --color-yellow-500: #ffbf11;
+  --color-yellow-600: #ffb10c;
+  --color-yellow-700: #ff9e0c;
+  --color-yellow-800: #ff8d0c;
+  --color-yellow-900: #996a13;
+
+  --color-grey-0: #ffffff;
+  --color-grey-10: #fafbfd;
+  --color-grey-25: #f6f7fb;
+  --color-grey-50: #edeff8;
+  --color-grey-100: #d1d8e5;
+  --color-grey-200: #b6becf;
+  --color-grey-300: #9aa4b9;
+  --color-grey-400: #8590a8;
+  --color-grey-500: #707d98;
+  --color-grey-600: #616e86;
+  --color-grey-700: #505a6f;
+  --color-grey-800: #404859;
+  --color-grey-900: #2d3341;
+
+  /* Shadows */
+  --box-shadow: 0 8px 24px rgba(149, 157, 165, 0.2);
 }
 
 * {

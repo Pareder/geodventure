@@ -1,11 +1,11 @@
 .time {
   position: absolute;
-  top: 16px;
+  top: var(--sizing-2);
   left: 50%;
   z-index: 9999;
-  padding: 8px 16px;
-  border-radius: 8px;
-  background-color: #ffffff;
+  padding: var(--sizing-1) var(--sizing-2);
+  border-radius: var(--radius-s);
+  background-color: var(--color-white);
   font-size: 24px;
   font-weight: 700;
   text-align: center;
@@ -15,11 +15,11 @@
 
 .round {
   position: absolute;
-  top: 16px;
+  top: var(--sizing-2);
   left: 0;
   z-index: 9999;
-  padding: 8px 0 8px 8px;
-  background-color: #ffffff;
+  padding: var(--sizing-1) 0 var(--sizing-1) var(--sizing-1);
+  background-color: var(--color-white);
   line-height: 1.25;
   &::after {
     content: '';
@@ -29,8 +29,8 @@
     left: 0;
     right: -20px;
     z-index: -1;
-    background-color: #ffffff;
-    border-radius: 8px;
+    background-color: var(--color-white);
+    border-radius: var(--radius-s);
     transform: skewX(-20deg);
   }
 }
@@ -42,11 +42,11 @@
 
 .score {
   position: absolute;
-  top: 16px;
+  top: var(--sizing-2);
   right: 0;
   z-index: 9999;
-  padding: 8px 8px 8px 0;
-  background-color: #ffffff;
+  padding: var(--sizing-1) var(--sizing-1) var(--sizing-1) 0;
+  background-color: var(--color-white);
   line-height: 1.25;
   text-align: right;
   &::after {
@@ -57,20 +57,20 @@
     left: -20px;
     right: 0;
     z-index: -1;
-    background-color: #ffffff;
-    border-radius: 8px;
+    background-color: var(--color-white);
+    border-radius: var(--radius-s);
     transform: skewX(20deg);
   }
 }
 
 .smallMap {
   position: absolute;
-  bottom: 16px;
-  left: 16px;
+  bottom: var(--sizing-2);
+  left: var(--sizing-2);
   z-index: 9999;
   width: 500px;
   height: 300px;
-  border-radius: 8px;
+  border-radius: var(--radius-s);
   outline: none;
   overflow: hidden;
   transition:
@@ -84,17 +84,17 @@
 
 .distance {
   position: absolute;
-  bottom: 8px;
+  bottom: var(--sizing-1);
   left: 50%;
   z-index: 9999;
-  padding: 8px 16px;
-  border-radius: 8px;
-  background-color: #ffffff;
+  padding: var(--sizing-1) var(--sizing-2);
+  border-radius: var(--radius-s);
+  background-color: var(--color-white);
   transform: translateX(-50%);
 }
 
 .finalTitle {
-  margin: 0 0 16px;
+  margin: 0 0 var(--sizing-2);
   text-align: center;
 }
 

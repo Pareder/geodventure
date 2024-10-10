@@ -11,17 +11,17 @@
 }
 
 .header {
-  padding: 8px 16px;
+  padding: var(--sizing-1) var(--sizing-2);
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: var(--sizing-2);
 }
 
 .link {
   display: flex;
   align-items: center;
-  color: #000000;
-  gap: 16px;
+  color: var(--color-black);
+  gap: var(--sizing-2);
   &:hover {
     text-decoration: none;
   }
@@ -34,7 +34,7 @@
 .right {
   margin-left: auto;
   display: flex;
-  gap: 8px;
+  gap: var(--sizing-1);
 }
 
 .avatar {
@@ -50,7 +50,7 @@
   font-size: 24px;
   font-weight: 700;
   border-radius: 50%;
-  background-color: #6dd5fa;
+  background-color: var(--color-blue-100);
   cursor: pointer;
 }
 
@@ -59,25 +59,25 @@
   top: 100%;
   right: 0;
   z-index: 99991;
-  padding: 16px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
+  padding: var(--sizing-2);
+  background-color: var(--color-white);
+  border-radius: var(--radius-s);
+  box-shadow: var(--box-shadow);
 }
 
 .name {
-  margin: 0 0 8px;
+  margin: 0 0 var(--sizing-1);
   font-size: 16px;
   font-weight: 700;
 }
 
 .email {
-  margin: 0 0 8px;
+  margin: 0 0 var(--sizing-1);
   font-size: 12px;
   font-weight: 400;
-  color: #646464;
+  color: var(--color-grey-400);
 }
 
 .divider {
-  margin: 8px -16px;
+  margin: var(--sizing-1) calc(var(--sizing-2) * -1);
 }

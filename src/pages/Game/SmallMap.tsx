@@ -43,16 +43,16 @@ export default function SmallMap({ coordinates, onClick }: SmallMapProps) {
         <>
           <AdvancedMarker position={coordinates}>
             <Pin
-              background="#22ff64"
-              borderColor="#1ea14a"
-              glyphColor="#0f7a2f"
+              background={`var(--color-green-300)`}
+              borderColor={`var(--color-green-500)`}
+              glyphColor={`var(--color-green-600)`}
             />
           </AdvancedMarker>
           <AdvancedMarker position={clickedCoordinates}>
             <Pin
-              background="#22ccff"
-              borderColor="#1e89a1"
-              glyphColor="#0f677a"
+              background={`var(--color-blue-300)`}
+              borderColor={`var(--color-blue-500)`}
+              glyphColor={`var(--color-blue-600)`}
             />
           </AdvancedMarker>
         </>
