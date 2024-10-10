@@ -6,6 +6,7 @@ import Alert from 'common/components/Alert'
 import Button from 'common/components/Button'
 import Input from 'common/components/Input'
 import { auth } from 'common/services/firebase'
+import GoogleSignup from '../components/GoogleSignup'
 import styles from './Login.module.css'
 
 export default function Login() {
@@ -74,6 +75,11 @@ export default function Login() {
         >
           Login
         </Button>
+        <GoogleSignup
+          label="Sign In with Google"
+          fullWidth
+          className={styles.field}
+        />
       </form>
       No account yet? <NavLink to="/auth/signup">Sign up</NavLink>
     </>

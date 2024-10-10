@@ -7,6 +7,7 @@ import Button from 'common/components/Button'
 import Input from 'common/components/Input'
 import { auth } from 'common/services/firebase'
 import styles from './Signup.module.css'
+import GoogleSignup from '../components/GoogleSignup'
 
 export default function Signup() {
   const [nickname, setNickname] = useState('')
@@ -94,6 +95,11 @@ export default function Signup() {
         >
           Sign up
         </Button>
+        <GoogleSignup
+          label="Sign Up with Google"
+          fullWidth
+          className={styles.field}
+        />
       </form>
       Already have an account? <NavLink to="/auth/login">Sign in</NavLink>
     </>
