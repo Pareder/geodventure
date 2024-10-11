@@ -7,7 +7,7 @@ function getDate(dayOffset = 0, hours?: number) {
     date.setHours(hours)
   }
 
-  return date
+  return date.getTime()
 }
 
 describe('getStreak util', () => {
@@ -16,81 +16,67 @@ describe('getStreak util', () => {
   })
 
   it('should return 0 if first game is a day before yesterday', () => {
-    expect(getStreak([{ date: getDate(2).getTime() }])).toBe(0)
+    expect(getStreak([{ date: getDate(2) }])).toBe(0)
   })
 
   it('should return 0 if first game is today', () => {
-    expect(getStreak([{ date: getDate().getTime() }])).toBe(1)
+    expect(getStreak([{ date: getDate() }])).toBe(1)
   })
 
   it('should return 0 if first game is yesterday', () => {
-    expect(getStreak([{ date: getDate(1).getTime() }])).toBe(1)
+    expect(getStreak([{ date: getDate(1) }])).toBe(1)
   })
 
   it('should return 2 for games between yesterday and today', () => {
-    expect(getStreak([{ date: getDate(0).getTime() }, { date: getDate(1).getTime() }])).toBe(2)
+    expect(getStreak([{ date: getDate(0) }, { date: getDate(1) }])).toBe(2)
   })
 
   it('should return 2 for games between yesterday and today and one more', () => {
-    expect(
-      getStreak([{ date: getDate(0).getTime() }, { date: getDate(1).getTime() }, { date: getDate(3).getTime() }]),
-    ).toBe(2)
+    expect(getStreak([{ date: getDate(0) }, { date: getDate(1) }, { date: getDate(3) }])).toBe(2)
   })
 
   it('should return 2 for several games between yesterday and today', () => {
-    expect(
-      getStreak([
-        { date: getDate(0).getTime() },
-        { date: getDate(0).getTime() },
-        { date: getDate(1).getTime() },
-        { date: getDate(1).getTime() },
-      ]),
-    ).toBe(2)
+    expect(getStreak([{ date: getDate(0) }, { date: getDate(0) }, { date: getDate(1) }, { date: getDate(1) }])).toBe(2)
   })
 
   it('should return 2 for games between a day before yesterday and yesterday', () => {
-    expect(getStreak([{ date: getDate(1).getTime() }, { date: getDate(2).getTime() }])).toBe(2)
+    expect(getStreak([{ date: getDate(1) }, { date: getDate(2) }])).toBe(2)
   })
 
   it('should return 2 for games between a day before yesterday and yesterday and one more', () => {
-    expect(
-      getStreak([{ date: getDate(1).getTime() }, { date: getDate(2).getTime() }, { date: getDate(4).getTime() }]),
-    ).toBe(2)
+    expect(getStreak([{ date: getDate(1) }, { date: getDate(2) }, { date: getDate(4) }])).toBe(2)
   })
 
   it('should return 2 for several games between a day before yesterday and yesterday', () => {
-    expect(
-      getStreak([
-        { date: getDate(1).getTime() },
-        { date: getDate(1).getTime() },
-        { date: getDate(2).getTime() },
-        { date: getDate(2).getTime() },
-      ]),
-    ).toBe(2)
+    expect(getStreak([{ date: getDate(1) }, { date: getDate(1) }, { date: getDate(2) }, { date: getDate(2) }])).toBe(2)
   })
 
   it('should return 0 for games before yesterday', () => {
-    expect(getStreak([{ date: getDate(2).getTime() }, { date: getDate(3).getTime() }])).toBe(0)
+    expect(getStreak([{ date: getDate(2) }, { date: getDate(3) }])).toBe(0)
   })
 
   it('should return 2 for games between yesterday morning and today', () => {
-    expect(getStreak([{ date: getDate(0).getTime() }, { date: getDate(1, 0).getTime() }])).toBe(2)
+    expect(getStreak([{ date: getDate(0) }, { date: getDate(1, 0) }])).toBe(2)
   })
 
   it('should return 2 for games between yesterday noon and today', () => {
-    expect(getStreak([{ date: getDate(0).getTime() }, { date: getDate(1, 23).getTime() }])).toBe(2)
+    expect(getStreak([{ date: getDate(0) }, { date: getDate(1, 23) }])).toBe(2)
   })
 
   it('should return 2 for several games between yesterday morning and today', () => {
     expect(
       getStreak([
-        { date: getDate(0, 23).getTime() },
-        { date: getDate(0).getTime() },
-        { date: getDate(0, 0).getTime() },
-        { date: getDate(1, 23).getTime() },
-        { date: getDate(1).getTime() },
-        { date: getDate(1, 0).getTime() },
+        { date: getDate(0, 23) },
+        { date: getDate(0) },
+        { date: getDate(0, 0) },
+        { date: getDate(1, 23) },
+        { date: getDate(1) },
+        { date: getDate(1, 0) },
       ]),
     ).toBe(2)
+  })
+
+  it('should return 3 for wrong sorting', () => {
+    expect(getStreak([{ date: getDate(1) }, { date: getDate(0) }, { date: getDate(2) }])).toBe(3)
   })
 })
