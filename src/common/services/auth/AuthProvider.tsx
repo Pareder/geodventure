@@ -20,7 +20,12 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   }, [])
 
   if (isLoading) {
-    return <Loader size={64} />
+    return (
+      <Loader
+        size={64}
+        isFullHeight
+      />
+    )
   }
 
   return <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>

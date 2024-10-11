@@ -1,12 +1,14 @@
+import cx from 'common/utils/classnames'
 import styles from './Loader.module.css'
 
 type LoaderProps = {
   size?: number
+  isFullHeight?: boolean
 }
 
-export default function Loader({ size = 48 }: LoaderProps) {
+export default function Loader({ size = 48, isFullHeight }: LoaderProps) {
   return (
-    <div className={styles.wrapper}>
+    <div className={cx(styles.wrapper, isFullHeight && styles.fullHeight)}>
       <svg
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"

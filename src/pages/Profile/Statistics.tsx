@@ -9,19 +9,23 @@ import styles from './Profile.module.css'
 
 export default function Statistics() {
   const [games, setGames] = useState<GameType[]>([])
+  const [isLoading, setLoading] = useState(true)
   const { user } = useAuth()
 
   useEffect(() => {
     if (!user?.uid) return
 
-    getDocs(query(collection(firestore, 'games'), where('user', '==', user?.uid))).then((snapshot) => {
-      setGames(snapshot.docs.map((doc) => doc.data() as GameType))
-    })
+    getDocs(query(collection(firestore, 'games'), where('user', '==', user?.uid)))
+      .then((snapshot) => {
+        setGames(snapshot.docs.map((doc) => doc.data() as GameType))
+      })
+      .finally(() => setLoading(false))
   }, [user?.uid])
 
   return (
     <div className={styles.statistics}>
       <StatisticBlock
+        isLoading={isLoading}
         label="Total Games"
         icon={
           <svg
@@ -58,6 +62,7 @@ export default function Statistics() {
         {games.length}
       </StatisticBlock>
       <StatisticBlock
+        isLoading={isLoading}
         label="Total Points"
         icon={
           <svg
@@ -88,6 +93,7 @@ export default function Statistics() {
         {getTotalScore(games).toLocaleString()}
       </StatisticBlock>
       <StatisticBlock
+        isLoading={isLoading}
         label="Day Streak"
         icon={
           <svg
