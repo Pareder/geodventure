@@ -58,9 +58,41 @@
   background-color: var(--color-green-50);
   border-radius: 50%;
   box-shadow: var(--box-shadow);
+  &.board {
+    background-color: var(--color-pink-25);
+  }
 }
 
 .date {
   margin-left: auto;
   font-size: 12px;
+}
+
+.leaderboard {
+  margin-top: var(--sizing-2);
+  padding: var(--sizing-2);
+  background-color: var(--color-pink-25);
+  border-radius: var(--radius-m);
+  box-shadow: var(--box-shadow);
+}
+
+.username {
+  display: flex;
+  align-items: center;
+  gap: var(--sizing-1);
+  overflow: hidden;
+  h4 {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}
+
+.avatar {
+  flex-shrink: 0;
+}
+
+.score {
+  margin-left: auto;
+  flex-shrink: 0;
 }

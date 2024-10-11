@@ -31,6 +31,7 @@ export default function Menu() {
     >
       <Avatar
         size={40}
+        text={user?.uid}
         className={styles.avatar}
       >
         {user?.displayName?.at(0)}

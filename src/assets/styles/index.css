@@ -98,6 +98,18 @@
   --color-grey-800: #404859;
   --color-grey-900: #2d3341;
 
+  --color-pink-25: #fff1fb;
+  --color-pink-50: #fde1f1;
+  --color-pink-100: #f7b2de;
+  --color-pink-200: #f07ac8;
+  --color-pink-300: #e72fb3;
+  --color-pink-400: #df00a4;
+  --color-pink-500: #cf0093;
+  --color-pink-600: #c10090;
+  --color-pink-700: #af008c;
+  --color-pink-800: #9e0088;
+  --color-pink-900: #7f0080;
+
   /* Shadows */
   --box-shadow: 0 8px 24px rgba(149, 157, 165, 0.2);
 }

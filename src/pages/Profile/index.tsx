@@ -4,6 +4,7 @@ import Avatar from 'common/components/Avatar'
 import Typography from 'common/components/Typography'
 import { GameType } from 'types'
 import GamesHistory from './GamesHistory'
+import Leaderboard from './Leaderboard'
 import Statistics from './Statistics'
 import { getGames } from './utils'
 import styles from './Profile.module.css'
@@ -30,7 +31,12 @@ export default function Profile() {
         Profile
       </Typography>
       <div className={styles.user}>
-        <Avatar size={80}>{user?.displayName?.at(0)}</Avatar>
+        <Avatar
+          size={80}
+          text={user?.uid}
+        >
+          {user?.displayName?.at(0)}
+        </Avatar>
         <div>
           <Typography
             variant="h3"
@@ -60,6 +66,7 @@ export default function Profile() {
         games={games}
         isLoading={isLoading}
       />
+      <Leaderboard />
     </div>
   )
 }

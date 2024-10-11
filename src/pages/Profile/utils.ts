@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
-import { collection, getDocs, query, where } from 'firebase/firestore'
+import { collection, getDocs, limit, orderBy, query, where } from 'firebase/firestore'
 import { firestore } from 'common/services/firebase'
-import { GameType } from 'types'
+import { GameType, UserType } from 'types'
 
 export function getGames(id: string) {
   return getDocs(query(collection(firestore, 'games'), where('user', '==', id))).then((snapshot) => {
@@ -14,6 +14,30 @@ export function getGames(id: string) {
           }) as GameType,
       )
       .sort((a, b) => b.date - a.date)
+  })
+}
+
+export function getLeaderboard() {
+  return Promise.all([
+    getDocs(query(collection(firestore, 'games'), orderBy('score', 'desc'), limit(10))),
+    getDocs(query(collection(firestore, 'users'))),
+  ]).then(([leaderboardSnapshot, usersSnapshot]) => {
+    const users = usersSnapshot.docs.reduce<Record<string, UserType>>(
+      (obj, doc) => ({
+        ...obj,
+        [doc.id]: doc.data() as UserType,
+      }),
+      {},
+    )
+
+    return leaderboardSnapshot.docs.map((doc) => {
+      const game = doc.data() as GameType
+      return {
+        ...game,
+        id: doc.id,
+        username: users[game.user]?.name,
+      }
+    })
   })
 }
 
