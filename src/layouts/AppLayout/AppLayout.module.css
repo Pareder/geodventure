@@ -94,7 +94,4 @@
     color: var(--color-grey-700);
     text-decoration: none;
   }
-  svg {
-    fill: var(--color-grey-700);
-  }
 }

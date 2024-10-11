@@ -3,6 +3,7 @@ import { updateProfile } from 'firebase/auth'
 import { doc, setDoc } from 'firebase/firestore'
 import { useSnackbar } from 'notistack'
 import Button from 'common/components/Button'
+import Icon from 'common/components/Icon'
 import Input from 'common/components/Input'
 import Typography from 'common/components/Typography'
 import { useAuth } from 'common/services/auth'
@@ -63,17 +64,11 @@ export default function EditableName({ defaultName }: EditableNameProps) {
             size="small"
             onClick={handleEdit}
           >
-            <svg
-              width="20px"
-              height="20px"
-              viewBox="0 0 1024 1024"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill="var(--color-grey-400)"
-                d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z"
-              />
-            </svg>
+            <Icon
+              name="close"
+              size={20}
+              color="var(--color-grey-400)"
+            />
           </Button>
           <Button
             variant="text"
@@ -81,21 +76,11 @@ export default function EditableName({ defaultName }: EditableNameProps) {
             disabled={isLoading}
             onClick={handleSave}
           >
-            <svg
-              width="20px"
-              height="20px"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-            >
-              <path
-                stroke="var(--color-green-400)"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M17 5L8 15l-5-4"
-              />
-            </svg>
+            <Icon
+              name="check"
+              size={20}
+              color="var(--color-green-400)"
+            />
           </Button>
         </>
       )}
@@ -107,21 +92,11 @@ export default function EditableName({ defaultName }: EditableNameProps) {
             size="small"
             onClick={handleEdit}
           >
-            <svg
-              width="20px"
-              height="20px"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-            >
-              <path
-                stroke="var(--color-blue-300)"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M3.8 12.963L2 18l4.8-.63L18.11 6.58a2.612 2.612 0 00-3.601-3.785L3.8 12.963z"
-              />
-            </svg>
+            <Icon
+              name="edit"
+              size={20}
+              color="var(--color-blue-300)"
+            />
           </Button>
         </>
       )}
