@@ -3,6 +3,7 @@ import { useAuth } from 'common/services/auth'
 import Avatar from 'common/components/Avatar'
 import Typography from 'common/components/Typography'
 import { GameType } from 'types'
+import EditableName from './EditableName'
 import GamesHistory from './GamesHistory'
 import Leaderboard from './Leaderboard'
 import Statistics from './Statistics'
@@ -38,12 +39,7 @@ export default function Profile() {
           {user?.displayName?.at(0)}
         </Avatar>
         <div>
-          <Typography
-            variant="h3"
-            margin="xs"
-          >
-            {user?.displayName}
-          </Typography>
+          <EditableName defaultName={user?.displayName} />
           <Typography
             variant="p"
             color="grey"

@@ -12,7 +12,7 @@ type LinkElementProps = LinkHTMLAttributes<HTMLAnchorElement> & {
 }
 
 export type ButtonProps = (ButtonElementProps | LinkElementProps) & {
-  variant?: 'primary' | 'secondary'
+  variant?: 'primary' | 'secondary' | 'text'
   size?: 'medium' | 'small'
   fullWidth?: boolean
 }

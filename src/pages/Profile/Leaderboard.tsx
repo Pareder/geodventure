@@ -17,7 +17,7 @@ export default function Leaderboard() {
     getLeaderboard()
       .then((leaderboard) => setLeaderboard(leaderboard))
       .finally(() => setLoading(false))
-  }, [])
+  }, [user?.displayName])
 
   return (
     <div className={styles.leaderboard}>

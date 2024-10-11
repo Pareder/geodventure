@@ -5,9 +5,16 @@
 
 .input {
   width: 100%;
-  padding: calc(var(--sizing-1) * 1.5) var(--sizing-2);
   border: 1px solid var(--color-grey-300);
   border-radius: var(--radius-s);
   font-size: 16px;
   line-height: 1.5;
+}
+
+.medium {
+  padding: calc(var(--sizing-1) * 1.5) var(--sizing-2);
+}
+
+.small {
+  padding: calc(var(--sizing-1) * 0.5) var(--sizing-1);
 }
