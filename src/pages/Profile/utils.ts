@@ -1,10 +1,10 @@
 import { GameType } from 'types'
 
-export function getTotalScore(games: GameType[]) {
+export function getTotalScore(games: Pick<GameType, 'score'>[]) {
   return games.reduce((acc, game) => acc + game.score, 0)
 }
 
-export function getStreak(games: GameType[]): number {
+export function getStreak(games: Pick<GameType, 'date'>[]): number {
   if (games.length === 0) return 0
 
   const today = new Date()
