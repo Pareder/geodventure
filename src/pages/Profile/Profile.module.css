@@ -32,11 +32,13 @@
 }
 
 .history {
+  max-height: 500px;
   margin-top: var(--sizing-2);
   padding: var(--sizing-2);
   background-color: var(--color-green-50);
   border-radius: var(--radius-m);
   box-shadow: var(--box-shadow);
+  overflow: auto;
 }
 
 .game {
@@ -69,11 +71,13 @@
 }
 
 .leaderboard {
+  max-height: 500px;
   margin-top: var(--sizing-2);
   padding: var(--sizing-2);
   background-color: var(--color-pink-25);
   border-radius: var(--radius-m);
   box-shadow: var(--box-shadow);
+  overflow: auto;
 }
 
 .username {
