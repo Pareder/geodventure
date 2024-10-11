@@ -1,11 +1,25 @@
+import { useEffect, useState } from 'react'
 import { useAuth } from 'common/services/auth'
 import Avatar from 'common/components/Avatar'
 import Typography from 'common/components/Typography'
+import { GameType } from 'types'
+import GamesHistory from './GamesHistory'
 import Statistics from './Statistics'
+import { getGames } from './utils'
 import styles from './Profile.module.css'
 
 export default function Profile() {
+  const [games, setGames] = useState<GameType[]>([])
+  const [isLoading, setLoading] = useState(true)
   const { user } = useAuth()
+
+  useEffect(() => {
+    if (!user?.uid) return
+
+    getGames(user.uid)
+      .then((games) => setGames(games))
+      .finally(() => setLoading(false))
+  }, [user?.uid])
 
   return (
     <div className={styles.wrapper}>
@@ -38,7 +52,14 @@ export default function Profile() {
       >
         Statistics
       </Typography>
-      <Statistics />
+      <Statistics
+        games={games}
+        isLoading={isLoading}
+      />
+      <GamesHistory
+        games={games}
+        isLoading={isLoading}
+      />
     </div>
   )
 }

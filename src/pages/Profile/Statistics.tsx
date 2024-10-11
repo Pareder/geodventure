@@ -1,27 +1,14 @@
-import { useEffect, useState } from 'react'
-import { collection, getDocs, query, where } from 'firebase/firestore'
-import { useAuth } from 'common/services/auth'
-import { firestore } from 'common/services/firebase'
 import { GameType } from 'types'
 import StatisticBlock from './StatisticBlock'
 import { getStreak, getTotalScore } from './utils'
 import styles from './Profile.module.css'
 
-export default function Statistics() {
-  const [games, setGames] = useState<GameType[]>([])
-  const [isLoading, setLoading] = useState(true)
-  const { user } = useAuth()
+type StatisticsProps = {
+  games: GameType[]
+  isLoading: boolean
+}
 
-  useEffect(() => {
-    if (!user?.uid) return
-
-    getDocs(query(collection(firestore, 'games'), where('user', '==', user?.uid)))
-      .then((snapshot) => {
-        setGames(snapshot.docs.map((doc) => doc.data() as GameType))
-      })
-      .finally(() => setLoading(false))
-  }, [user?.uid])
-
+export default function Statistics({ games, isLoading }: StatisticsProps) {
   return (
     <div className={styles.statistics}>
       <StatisticBlock
