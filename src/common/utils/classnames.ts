@@ -1,3 +1,6 @@
-export default function cx(...classNames: unknown[]) {
-  return classNames.filter(Boolean).join(' ')
+import { clsx, type ClassValue } from 'clsx'
+import { twMerge } from 'tailwind-merge'
+
+export default function cx(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
 }
