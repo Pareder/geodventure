@@ -1,87 +1,132 @@
-import { FormEvent, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { ExclamationTriangleIcon } from '@radix-ui/react-icons'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import { useSnackbar } from 'notistack'
-import { NavLink } from 'react-router-dom'
-import Alert from 'common/components/Alert'
-import Button from 'common/components/Button'
-import Input from 'common/components/Input'
+import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
+import { toast } from 'sonner'
+import { z } from 'zod'
+import { Alert, AlertDescription, AlertTitle } from 'common/ui/alert'
+import { Button, buttonVariants } from 'common/ui/button'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'common/ui/form'
+import { Input, PasswordInput } from 'common/ui/input'
 import { auth } from 'common/services/firebase'
+import cx from 'common/utils/classnames'
+import formSchema from './formSchema'
+import GithubSignup from '../components/GithubSignup'
 import GoogleSignup from '../components/GoogleSignup'
-import styles from './Login.module.css'
+
+type FormValues = z.infer<typeof formSchema>
 
 export default function Login() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [isLoading, setLoading] = useState(false)
   const [isError, setError] = useState(false)
-  const { enqueueSnackbar } = useSnackbar()
+  const { watch, ...form } = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  })
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault()
-    if (!email || !password) return
-
-    setLoading(true)
-    setError(false)
-    signInWithEmailAndPassword(auth, email, password)
+  const handleSubmit = (values: FormValues) => {
+    return signInWithEmailAndPassword(auth, values.email, values.password)
       .then(() => {
-        enqueueSnackbar('Logged in', { variant: 'success' })
+        toast.success('Logged in')
       })
-      .catch(() => {
-        setError(true)
-      })
-      .finally(() => setLoading(false))
+      .catch(() => setError(true))
   }
 
+  useEffect(() => {
+    const subscription = watch(() => setError(false))
+    return () => subscription.unsubscribe()
+  }, [watch])
+
   return (
-    <>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <Input
-          id="email-address"
-          label="Email address"
-          type="email"
-          value={email}
-          required
-          placeholder="email@example.com"
-          className={styles.field}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Input
-          id="password"
-          label="Password"
-          type="password"
-          value={password}
-          required
-          placeholder="********"
-          className={styles.field}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <div className={styles.field}>
-          <NavLink to="/auth/forgot-password">Forgot password?</NavLink>
-        </div>
-        {isError && (
-          <Alert
-            severity="error"
-            className={styles.field}
-          >
-            Invalid email or password
-          </Alert>
-        )}
-        <Button
-          type="submit"
-          fullWidth
-          className={styles.field}
-          disabled={isLoading}
+    <div className="w-full space-y-6">
+      <Link
+        to="/auth/signup"
+        className={cx(buttonVariants({ variant: 'ghost' }), 'absolute right-4 top-4 md:right-8 md:top-8')}
+      >
+        Sign Up
+      </Link>
+      <div className="flex flex-col space-y-2 text-center">
+        <h1 className="text-2xl font-semibold tracking-tight">Sign In</h1>
+        <p className="text-sm text-muted-foreground">Enter your credentials below</p>
+      </div>
+      <Form
+        watch={watch}
+        {...form}
+      >
+        <form
+          className="grid gap-6"
+          onSubmit={form.handleSubmit(handleSubmit)}
         >
-          Login
-        </Button>
-        <GoogleSignup
-          label="Sign In with Google"
-          fullWidth
-          className={styles.field}
-        />
-      </form>
-      No account yet? <NavLink to="/auth/signup">Sign up</NavLink>
-    </>
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email address</FormLabel>
+                <FormControl>
+                  <Input
+                    type="email"
+                    placeholder="email@example.com"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <PasswordInput
+                    placeholder="********"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {isError && (
+            <Alert variant="destructive">
+              <ExclamationTriangleIcon className="h-4 w-4" />
+              <AlertTitle>Error</AlertTitle>
+              <AlertDescription>Invalid email or password</AlertDescription>
+            </Alert>
+          )}
+          <Button
+            type="submit"
+            loading={form.formState.isSubmitting}
+          >
+            Sign In with Email
+          </Button>
+        </form>
+      </Form>
+      <div className="relative">
+        <div className="absolute inset-0 flex items-center">
+          <span className="w-full border-t" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+        </div>
+      </div>
+      <GoogleSignup
+        loading={form.formState.isSubmitting}
+        className="w-full"
+        label="Sign In with Google"
+      />
+      <GithubSignup
+        loading={form.formState.isSubmitting}
+        className="w-full"
+        label="Sign In with Github"
+      />
+    </div>
   )
 }

@@ -24,7 +24,7 @@ type IconName =
   | 'trophy'
   | 'user'
 
-type IconProps = {
+type IconProps = ComponentProps<'svg'> & {
   name: IconName
   size?: number
   color?: string
@@ -44,7 +44,12 @@ const iconMap: Record<IconName, FunctionComponent<ComponentProps<'svg'>>> = {
   user: UserIcon,
 }
 
-export default function Icon({ name, size, color }: IconProps) {
+export default function Icon({ name, size, color, ...props }: IconProps) {
   const IconComponent = iconMap[name]
-  return <IconComponent style={{ width: size, height: size, color }} />
+  return (
+    <IconComponent
+      style={{ width: size, height: size, color }}
+      {...props}
+    />
+  )
 }

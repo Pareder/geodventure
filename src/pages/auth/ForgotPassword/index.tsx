@@ -1,7 +1,7 @@
 import { FormEvent, useState } from 'react'
 import { sendPasswordResetEmail } from 'firebase/auth'
-import { useSnackbar } from 'notistack'
 import { NavLink } from 'react-router-dom'
+import { toast } from 'sonner'
 import Alert from 'common/components/Alert'
 import Button from 'common/components/Button'
 import Input from 'common/components/Input'
@@ -12,7 +12,6 @@ export default function ForgotPassword() {
   const [email, setEmail] = useState('')
   const [isLoading, setLoading] = useState(false)
   const [isError, setError] = useState(false)
-  const { enqueueSnackbar } = useSnackbar()
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
@@ -22,7 +21,7 @@ export default function ForgotPassword() {
     setError(false)
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        enqueueSnackbar('Reset password email sent', { variant: 'success' })
+        toast.success('Reset password email sent')
       })
       .catch(() => {
         setError(true)

@@ -3,14 +3,6 @@
 @tailwind utilities;
 
 :root {
-  font-family: Arial, sans-serif;
-  font-size: 16px;
-  line-height: 1.625;
-  font-weight: 400;
-  color: var(--color-grey-900);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
   /* Sizes */
   --sizing-nil: 0;
   --sizing-025: 2px;
@@ -116,21 +108,6 @@
 
   /* Shadows */
   --box-shadow: 0 8px 24px rgba(149, 157, 165, 0.2);
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-}
-
-a {
-  text-decoration: none;
-  &:hover {
-    text-decoration: underline;
-  }
 }
 
 @layer base {

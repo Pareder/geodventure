@@ -1,7 +1,7 @@
 import { FormEvent, useState } from 'react'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
-import { useSnackbar } from 'notistack'
 import { NavLink } from 'react-router-dom'
+import { toast } from 'sonner'
 import Alert from 'common/components/Alert'
 import Button from 'common/components/Button'
 import Input from 'common/components/Input'
@@ -17,7 +17,6 @@ export default function Signup() {
   const [repeatPassword, setRepeatPassword] = useState('')
   const [isLoading, setLoading] = useState(false)
   const [isError, setError] = useState(false)
-  const { enqueueSnackbar } = useSnackbar()
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
@@ -29,7 +28,7 @@ export default function Signup() {
       .then(({ user }) => {
         updateProfile(user, { displayName: nickname })
         createUser(user.uid, nickname)
-        enqueueSnackbar('Account created', { variant: 'success' })
+        toast.success('Account created')
       })
       .catch(() => {
         setError(true)
@@ -99,8 +98,7 @@ export default function Signup() {
         </Button>
         <GoogleSignup
           label="Sign Up with Google"
-          fullWidth
-          className={styles.field}
+          className={`w-full ${styles.field}`}
         />
       </form>
       Already have an account? <NavLink to="/auth/login">Sign in</NavLink>

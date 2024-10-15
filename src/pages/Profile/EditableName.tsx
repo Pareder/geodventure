@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { updateProfile } from 'firebase/auth'
 import { doc, setDoc } from 'firebase/firestore'
-import { useSnackbar } from 'notistack'
+import { toast } from 'sonner'
 import Button from 'common/components/Button'
 import Icon from 'common/components/Icon'
 import Input from 'common/components/Input'
@@ -18,7 +18,6 @@ export default function EditableName({ defaultName }: EditableNameProps) {
   const [name, setName] = useState(defaultName || '')
   const [isEdit, setEdit] = useState(false)
   const [isLoading, setLoading] = useState(false)
-  const { enqueueSnackbar } = useSnackbar()
   const { setUser } = useAuth()
 
   const handleEdit = () => {
@@ -35,9 +34,9 @@ export default function EditableName({ defaultName }: EditableNameProps) {
       .then(() => {
         setUser({ ...auth.currentUser! })
         handleEdit()
-        enqueueSnackbar('Nickname updated', { variant: 'success' })
+        toast.success('Nickname updated')
       })
-      .catch(() => enqueueSnackbar('Something went wrong', { variant: 'error' }))
+      .catch(() => toast.error('Something went wrong'))
       .finally(() => {
         setLoading(false)
       })

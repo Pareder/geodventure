@@ -1,6 +1,7 @@
 import cx from 'common/utils/classnames'
-import Icon from 'common/components/Icon'
-import styles from './Loader.module.css'
+import { LoadingSpinner } from './LoadingSpinner'
+
+export { LoadingSpinner }
 
 type LoaderProps = {
   size?: number
@@ -9,12 +10,8 @@ type LoaderProps = {
 
 export default function Loader({ size = 48, isFullHeight }: LoaderProps) {
   return (
-    <div className={cx(styles.wrapper, isFullHeight && styles.fullHeight)}>
-      <Icon
-        name="loader"
-        size={size}
-        color="var(--color-blue-400)"
-      />
+    <div className={cx('flex flex-col items-center justify-center', { 'h-screen': isFullHeight })}>
+      <LoadingSpinner size={size} />
     </div>
   )
 }
