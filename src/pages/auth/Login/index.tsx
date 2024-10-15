@@ -58,7 +58,7 @@ export default function Login() {
         {...form}
       >
         <form
-          className="grid gap-6"
+          className="grid gap-4"
           onSubmit={form.handleSubmit(handleSubmit)}
         >
           <FormField
