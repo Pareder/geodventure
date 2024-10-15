@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { AdvancedMarker, Map, MapMouseEvent, Pin, useMap } from '@vis.gl/react-google-maps'
 import { formatDistance } from 'common/utils/distance'
 import { COORDINATES } from './consts'
-import styles from './Game.module.css'
 
 type SmallMapProps = {
   coordinates?: google.maps.LatLngLiteral
@@ -33,7 +32,7 @@ export default function SmallMap({ coordinates, onClick }: SmallMapProps) {
     <Map
       id="small-map"
       mapId="small-map"
-      className={styles.smallMap}
+      className="absolute bottom-4 left-4 z-10 w-[500px] h-[300px] hover:w-[700px] hover:h-[500px] rounded-md overflow-hidden transition-all"
       defaultCenter={COORDINATES}
       defaultZoom={2}
       disableDefaultUI
@@ -43,21 +42,25 @@ export default function SmallMap({ coordinates, onClick }: SmallMapProps) {
         <>
           <AdvancedMarker position={coordinates}>
             <Pin
-              background="var(--color-green-300)"
-              borderColor="var(--color-green-500)"
-              glyphColor="var(--color-green-600)"
+              background="hsl(var(--chart-2))"
+              borderColor="hsl(var(--chart-2))"
+              glyphColor="hsl(var(--chart-2))"
             />
           </AdvancedMarker>
           <AdvancedMarker position={clickedCoordinates}>
             <Pin
-              background="var(--color-blue-300)"
-              borderColor="var(--color-blue-500)"
-              glyphColor="var(--color-blue-600)"
+              background="hsl(var(--chart-1))"
+              borderColor="hsl(var(--chart-1))"
+              glyphColor="hsl(var(--chart-1))"
             />
           </AdvancedMarker>
         </>
       )}
-      {!!distance && <div className={styles.distance}>Distance: {formatDistance(distance)}</div>}
+      {!!distance && (
+        <div className="absolute z-10 bottom-2 left-1/2 -translate-x-1/2 py-2 px-4 rounded-md bg-background">
+          Distance: {formatDistance(distance)}
+        </div>
+      )}
     </Map>
   )
 }

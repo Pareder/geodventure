@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
-import Button from 'common/components/Button'
-import Modal from 'common/components/Modal'
+import { Link } from 'react-router-dom'
 import StreetMap from 'common/components/StreetMap'
 import { setStreetView } from 'common/components/StreetMap/utils'
+import { Button, buttonVariants } from 'common/ui/button'
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from 'common/ui/dialog'
 import { secondsToTime } from 'common/utils/time'
 import { MAX_ROUNDS, TIME } from './consts'
 import { calculateScore, saveScore } from './utils'
 import SmallMap from './SmallMap'
-import styles from './Game.module.css'
 
 export default function Game() {
   const [round, setRound] = useState(1)
@@ -69,18 +69,22 @@ export default function Game() {
 
   return (
     <>
-      <div className={styles.time}>{secondsToTime(timer)}</div>
-      <div className={styles.round}>
-        Round
+      <div className="absolute z-10 top-4 left-1/2 -translate-x-1/2 p-4 bg-background rounded-md text-2xl font-semibold">
+        {secondsToTime(timer)}
+      </div>
+      <div className="absolute z-10 top-4 left-0 p-2 pr-0 bg-background">
+        <div className="absolute -z-10 top-0 bottom-0 left-0 -right-4 -skew-x-12 bg-background rounded-md" />
+        <span className="text-slate-300 text-sm">Round</span>
         <br />
-        <span className={styles.textBig}>
+        <span className="text-2xl font-semibold">
           {round}/{MAX_ROUNDS}
         </span>
       </div>
-      <div className={styles.score}>
-        Score
+      <div className="absolute z-10 top-4 right-0 p-2 pl-0 bg-background text-right">
+        <div className="absolute -z-10 top-0 bottom-0 -left-4 right-0 skew-x-12 bg-background rounded-md" />
+        <span className="text-slate-300 text-sm">Score</span>
         <br />
-        <span className={styles.textBig}>{score}</span>
+        <span className="text-2xl font-semibold">{score}</span>
       </div>
       <StreetMap setCoordinates={setCoordinates} />
       <SmallMap
@@ -88,20 +92,27 @@ export default function Game() {
         coordinates={coordinates}
         onClick={handleClick}
       />
-      {isFinal && (
-        <Modal>
-          <h2 className={styles.finalTitle}>Your final score is: {score}</h2>
-          <div className={styles.buttons}>
-            <Button onClick={restart}>Play again</Button>
-            <Button
+      <Dialog open={isFinal}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Your final score is: {score}</DialogTitle>
+          </DialogHeader>
+          <DialogFooter>
+            <Link
               to="/"
-              variant="secondary"
+              className={buttonVariants({ variant: 'outline' })}
             >
               Home
+            </Link>
+            <Button
+              variant="default"
+              onClick={restart}
+            >
+              Play again
             </Button>
-          </div>
-        </Modal>
-      )}
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </>
   )
 }
