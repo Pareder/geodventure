@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useAuth } from 'common/services/auth'
-import Button from 'common/components/Button'
-import Menu from './Menu.tsx'
-import styles from './AppLayout.module.css'
+import { buttonVariants } from 'common/ui/button'
+import Menu from './Menu'
 
 const logo = new URL('/logo.svg', import.meta.url).href
 
@@ -10,10 +9,10 @@ export default function Header() {
   const { user } = useAuth()
 
   return (
-    <header className={styles.header}>
+    <header className="flex h-16 items-center px-4 shrink-0 border-b">
       <Link
         to="/"
-        className={styles.link}
+        className="flex items-center gap-2"
       >
         <img
           src={logo}
@@ -21,20 +20,25 @@ export default function Header() {
           width={48}
           height={48}
         />
-        <h2 className={styles.title}>Geodventure</h2>
+        <h1 className="text-3xl font-semibold tracking-tight">Geodventure</h1>
       </Link>
-      <div className={styles.right}>
+      <div className="ml-auto flex gap-2">
         {user ? (
           <Menu />
         ) : (
           <>
-            <Button
+            <Link
               to="/auth/login"
-              variant="secondary"
+              className={buttonVariants({ variant: 'default' })}
             >
-              Login
-            </Button>
-            <Button to="/auth/signup">Sign Up</Button>
+              Sign In
+            </Link>
+            <Link
+              to="/auth/signup"
+              className={buttonVariants({ variant: 'outline' })}
+            >
+              Sign Up
+            </Link>
           </>
         )}
       </div>

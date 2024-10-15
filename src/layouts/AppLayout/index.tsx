@@ -1,12 +1,11 @@
 import { Outlet } from 'react-router-dom'
 import Header from './Header'
-import styles from './AppLayout.module.css'
 
 export default function AppLayout() {
   return (
-    <div className={styles.wrapper}>
+    <div className="h-screen flex flex-col bg-background">
       <Header />
-      <main className={styles.content}>
+      <main className="relative grow overflow-y-auto overflow-x-hidden">
         <Outlet />
       </main>
     </div>

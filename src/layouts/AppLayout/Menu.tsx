@@ -1,83 +1,57 @@
-import { useEffect, useRef, useState } from 'react'
+import { ExitIcon, PersonIcon } from '@radix-ui/react-icons'
 import { signOut } from 'firebase/auth'
-import { Link } from 'react-router-dom'
-import Avatar from 'common/components/Avatar'
-import Button from 'common/components/Button'
-import Icon from 'common/components/Icon'
-import Typography from 'common/components/Typography'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from 'common/services/auth'
 import { auth } from 'common/services/firebase'
-import styles from './AppLayout.module.css'
+import { Avatar, AvatarFallback } from 'common/ui/avatar'
+import { Button } from 'common/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from 'common/ui/dropdown-menu'
 
 export default function Menu() {
-  const [open, setOpen] = useState(false)
   const { user } = useAuth()
-  const wrapper = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      if (wrapper.current && !wrapper.current.contains(e.target as Node)) {
-        setOpen(false)
-      }
-    }
-    document.addEventListener('click', handleClick)
-    return () => document.removeEventListener('click', handleClick)
-  }, [])
+  const navigate = useNavigate()
 
   return (
-    <div
-      ref={wrapper}
-      className={styles.menu}
-      onClick={() => setOpen(!open)}
-    >
-      <Avatar
-        size={40}
-        text={user?.uid}
-        className={styles.avatar}
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant="ghost"
+          className="relative h-8 w-8 rounded-full"
+        >
+          <Avatar className="h-10 w-10">
+            <AvatarFallback>{user?.displayName?.at(0)}</AvatarFallback>
+          </Avatar>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent
+        className="w-56"
+        align="end"
+        forceMount
       >
-        {user?.displayName?.at(0)}
-      </Avatar>
-      {open && (
-        <div className={styles.popover}>
-          <div className={styles.info}>
-            <Typography
-              variant="h4"
-              margin="s"
-            >
-              {user?.displayName}
-            </Typography>
-            <Typography
-              variant="h6"
-              color="grey"
-            >
-              {user?.email}
-            </Typography>
+        <DropdownMenuLabel className="font-normal">
+          <div className="flex flex-col space-y-1">
+            <p className="text-sm font-medium leading-none">{user?.displayName}</p>
+            <p className="text-xs leading-none text-muted-foreground">{user?.email}</p>
           </div>
-          <hr className={styles.divider} />
-          <Link
-            to="profile"
-            className={styles.item}
-          >
-            <Icon
-              name="user"
-              size={20}
-            />
-            Profile
-          </Link>
-          <Button
-            size="small"
-            fullWidth
-            className={styles.item}
-            onClick={() => signOut(auth)}
-          >
-            <Icon
-              name="logout"
-              size={20}
-            />
-            Logout
-          </Button>
-        </div>
-      )}
-    </div>
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={() => navigate('/profile')}>
+          <PersonIcon className="w-4 h-4 mr-2" />
+          Profile
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={() => signOut(auth)}>
+          <ExitIcon className="w-4 h-4 mr-2" />
+          Log out
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }
