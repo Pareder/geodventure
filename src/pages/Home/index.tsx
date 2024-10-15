@@ -1,23 +1,30 @@
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import StreetMap from 'common/components/StreetMap'
 import CheckAccess, { access } from 'common/access'
-import Button from 'common/components/Button'
-import styles from './Home.module.css'
+import { buttonVariants } from 'common/ui/button'
 
 export default function Home() {
   return (
     <>
       <StreetMap />
-      <div className={styles.info}>
+      <div className="absolute z-10 top-4 left-1/2 -translate-x-1/2">
         <CheckAccess
           access={access.F_PROTECTED}
           fallback={
-            <p className={styles.text}>
-              <NavLink to="/auth/login">Log in</NavLink> to play
-            </p>
+            <Link
+              to="/auth/login"
+              className={buttonVariants({ variant: 'secondary', size: 'lg' })}
+            >
+              Sign In to Play
+            </Link>
           }
         >
-          <Button to="/game">Play</Button>
+          <Link
+            to="/game"
+            className={buttonVariants({ variant: 'secondary', size: 'lg' })}
+          >
+            Play
+          </Link>
         </CheckAccess>
       </div>
     </>
