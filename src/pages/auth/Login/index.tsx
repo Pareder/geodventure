@@ -101,6 +101,12 @@ export default function Login() {
               <AlertDescription>Invalid email or password</AlertDescription>
             </Alert>
           )}
+          <Link
+            to="/auth/forgot-password"
+            className={buttonVariants({ variant: 'ghost' })}
+          >
+            Forgot Password?
+          </Link>
           <Button
             type="submit"
             loading={form.formState.isSubmitting}
