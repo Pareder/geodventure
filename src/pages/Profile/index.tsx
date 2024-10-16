@@ -26,7 +26,10 @@ export default function Profile() {
       <h1 className="text-2xl font-semibold tracking-tight">Profile</h1>
       <div className="flex items-center gap-4">
         <Avatar className="h-20 w-20">
-          <AvatarFallback className="text-3xl font-semibold">{user?.displayName?.at(0)}</AvatarFallback>
+          <AvatarFallback
+            className="text-3xl"
+            text={user?.displayName}
+          />
         </Avatar>
         <div className="w-auto">
           <EditableName defaultName={user?.displayName} />

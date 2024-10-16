@@ -29,7 +29,10 @@ export default function Leaderboard() {
           <Badge>{index + 1}</Badge>
           <div className="flex items-center gap-2 overflow-hidden">
             <Avatar className="h-6 w-6">
-              <AvatarFallback className="bg-background">{(game.username || game.user).charAt(0)}</AvatarFallback>
+              <AvatarFallback
+                className="text-xs bg-background"
+                text={game.username || game.user}
+              />
             </Avatar>
             <p className="font-semibold text-ellipsis overflow-hidden">{game.username}</p>
             {game.user === user?.uid && <p className="text-sm text-slate-300">(You)</p>}

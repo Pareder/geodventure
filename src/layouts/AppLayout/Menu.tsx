@@ -26,7 +26,7 @@ export default function Menu() {
           className="relative h-8 w-8 rounded-full"
         >
           <Avatar className="h-10 w-10">
-            <AvatarFallback>{user?.displayName?.at(0)}</AvatarFallback>
+            <AvatarFallback text={user?.displayName} />
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
