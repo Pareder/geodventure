@@ -20,7 +20,7 @@ export default function Leaderboard() {
   return (
     <div className="max-h-[500px] p-4 flex flex-col gap-2 rounded-lg border overflow-auto">
       <h3 className="mb-2 text-xl font-semibold tracking-tight">Leaderboard</h3>
-      {isLoading && <Loader />}
+      {isLoading && <Loader size={48} />}
       {leaderboard.map((game, index) => (
         <div
           key={game.id}
