@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react'
+import { CheckIcon, Cross2Icon, Pencil1Icon } from '@radix-ui/react-icons'
 import { updateProfile } from 'firebase/auth'
 import { doc, setDoc } from 'firebase/firestore'
 import { toast } from 'sonner'
-import Button from 'common/components/Button'
-import Icon from 'common/components/Icon'
-import Input from 'common/components/Input'
-import Typography from 'common/components/Typography'
 import { useAuth } from 'common/services/auth'
 import { auth, firestore } from 'common/services/firebase'
-import styles from './Profile.module.css'
+import { Button } from 'common/ui/button'
+import { Input } from 'common/ui/input'
 
 type EditableNameProps = {
   defaultName?: string | null
@@ -47,11 +45,10 @@ export default function EditableName({ defaultName }: EditableNameProps) {
   }, [defaultName])
 
   return (
-    <div className={styles.editWrapper}>
+    <div className="mb-2 flex items-center gap-1">
       {isEdit && (
         <>
           <Input
-            size="small"
             type="text"
             value={name}
             placeholder="Nickname"
@@ -59,43 +56,33 @@ export default function EditableName({ defaultName }: EditableNameProps) {
             onChange={(e) => setName(e.target.value)}
           />
           <Button
-            variant="text"
-            size="small"
+            variant="link"
+            size="icon"
+            className="shrink-0"
             onClick={handleEdit}
           >
-            <Icon
-              name="close"
-              size={20}
-              color="var(--color-grey-400)"
-            />
+            <Cross2Icon className="h-4 w-4 text-red-500" />
           </Button>
           <Button
-            variant="text"
-            size="small"
+            variant="outline"
+            size="icon"
             disabled={isLoading}
+            className="shrink-0"
             onClick={handleSave}
           >
-            <Icon
-              name="check"
-              size={20}
-              color="var(--color-green-400)"
-            />
+            <CheckIcon className="h-4 w-4 text-green-400" />
           </Button>
         </>
       )}
       {!isEdit && (
         <>
-          <Typography variant="h3">{name}</Typography>
+          <h3 className="text-xl mr-2">{name}</h3>
           <Button
-            variant="text"
-            size="small"
+            variant="outline"
+            size="icon"
             onClick={handleEdit}
           >
-            <Icon
-              name="edit"
-              size={20}
-              color="var(--color-blue-300)"
-            />
+            <Pencil1Icon className="h-4 w-4" />
           </Button>
         </>
       )}

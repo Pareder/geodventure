@@ -1,9 +1,8 @@
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 import Loader from 'common/components/Loader'
-import Typography from 'common/components/Typography'
+import { Badge } from 'common/ui/badge'
 import { GameType } from 'types'
-import styles from './Profile.module.css'
 
 dayjs.extend(localizedFormat)
 
@@ -14,43 +13,20 @@ type GamesHistoryProps = {
 
 export default function GamesHistory({ games, isLoading }: GamesHistoryProps) {
   return (
-    <div className={styles.history}>
-      <Typography
-        variant="h3"
-        margin="m"
-      >
-        Your Games
-      </Typography>
+    <div className="max-h-[500px] p-4 flex flex-col gap-2 rounded-lg border overflow-auto">
+      <h3 className="mb-2 text-xl font-semibold tracking-tight">Your Games</h3>
       {isLoading && <Loader />}
       {games.map((game, index) => (
         <div
           key={game.id}
-          className={styles.game}
+          className="p-2 flex items-center gap-4 rounded-md bg-secondary"
         >
-          <Typography
-            variant="h4"
-            className={styles.count}
-          >
-            {index + 1}
-          </Typography>
-          <Typography variant="h4">{game.score.toLocaleString()} pts</Typography>
-          <Typography
-            variant="p"
-            color="grey"
-            className={styles.date}
-          >
-            {dayjs(game.date).format('LLL')}
-          </Typography>
+          <Badge>{index + 1}</Badge>
+          <p className="font-semibold">{game.score.toLocaleString()} pts</p>
+          <p className="ml-auto text-xs text-slate-300">{dayjs(game.date).format('LLL')}</p>
         </div>
       ))}
-      {!games.length && !isLoading && (
-        <Typography
-          variant="h3"
-          color="grey"
-        >
-          There are no Games yet.
-        </Typography>
-      )}
+      {!games.length && !isLoading && <h3 className="text-xl font-semibold text-slate-300">There are no Games yet.</h3>}
     </div>
   )
 }

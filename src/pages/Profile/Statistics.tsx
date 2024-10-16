@@ -2,7 +2,6 @@ import { GameType } from 'types'
 import Icon from 'common/components/Icon'
 import StatisticBlock from './StatisticBlock'
 import { getStreak, getTotalScore } from './utils'
-import styles from './Profile.module.css'
 
 type StatisticsProps = {
   games: GameType[]
@@ -14,7 +13,7 @@ export default function Statistics({ games, isLoading }: StatisticsProps) {
   const totalScore = getTotalScore(games)
 
   return (
-    <div className={styles.statistics}>
+    <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4">
       <StatisticBlock
         isLoading={isLoading}
         label="Total Games"

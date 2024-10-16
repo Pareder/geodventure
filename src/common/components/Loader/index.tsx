@@ -8,9 +8,9 @@ type LoaderProps = {
   isFullHeight?: boolean
 }
 
-export default function Loader({ size = 48, isFullHeight }: LoaderProps) {
+export default function Loader({ size, isFullHeight }: LoaderProps) {
   return (
-    <div className={cx('flex flex-col items-center justify-center', { 'h-screen': isFullHeight })}>
+    <div className={cx('w-full h-full flex flex-col items-center justify-center', { 'h-screen': isFullHeight })}>
       <LoadingSpinner size={size} />
     </div>
   )

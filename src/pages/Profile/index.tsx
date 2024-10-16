@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from 'common/services/auth'
-import Avatar from 'common/components/Avatar'
-import Typography from 'common/components/Typography'
+import { Avatar, AvatarFallback } from 'common/ui/avatar'
 import { GameType } from 'types'
 import EditableName from './EditableName'
 import GamesHistory from './GamesHistory'
 import Leaderboard from './Leaderboard'
 import Statistics from './Statistics'
 import { getGames } from './utils'
-import styles from './Profile.module.css'
 
 export default function Profile() {
   const [games, setGames] = useState<GameType[]>([])
@@ -24,36 +22,18 @@ export default function Profile() {
   }, [user?.uid])
 
   return (
-    <div className={styles.wrapper}>
-      <Typography
-        variant="h2"
-        margin="l"
-      >
-        Profile
-      </Typography>
-      <div className={styles.user}>
-        <Avatar
-          size={80}
-          text={user?.uid}
-        >
-          {user?.displayName?.at(0)}
+    <div className="max-w-[1024px] my-8 mx-auto p-6 flex flex-col gap-4 border rounded-lg">
+      <h1 className="text-2xl font-semibold tracking-tight">Profile</h1>
+      <div className="flex items-center gap-4">
+        <Avatar className="h-20 w-20">
+          <AvatarFallback className="text-3xl font-semibold">{user?.displayName?.at(0)}</AvatarFallback>
         </Avatar>
-        <div>
+        <div className="w-auto">
           <EditableName defaultName={user?.displayName} />
-          <Typography
-            variant="p"
-            color="grey"
-          >
-            {user?.email}
-          </Typography>
+          <p className="text-slate-300">{user?.email}</p>
         </div>
       </div>
-      <Typography
-        variant="h3"
-        margin="m"
-      >
-        Statistics
-      </Typography>
+      <h3 className="text-xl font-semibold tracking-tight">Statistics</h3>
       <Statistics
         games={games}
         isLoading={isLoading}

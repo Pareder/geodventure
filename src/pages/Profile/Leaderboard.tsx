@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react'
-import Avatar from 'common/components/Avatar'
 import Loader from 'common/components/Loader'
-import Typography from 'common/components/Typography'
 import { useAuth } from 'common/services/auth'
-import cx from 'common/utils/classnames'
+import { Avatar, AvatarFallback } from 'common/ui/avatar'
+import { Badge } from 'common/ui/badge'
 import { GameType } from 'types'
 import { getLeaderboard } from './utils'
-import styles from './Profile.module.css'
 
 export default function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState<GameType[]>([])
@@ -20,58 +18,27 @@ export default function Leaderboard() {
   }, [user?.displayName])
 
   return (
-    <div className={styles.leaderboard}>
-      <Typography
-        variant="h3"
-        margin="m"
-      >
-        Leaderboard
-      </Typography>
+    <div className="max-h-[500px] p-4 flex flex-col gap-2 rounded-lg border overflow-auto">
+      <h3 className="mb-2 text-xl font-semibold tracking-tight">Leaderboard</h3>
       {isLoading && <Loader />}
       {leaderboard.map((game, index) => (
         <div
           key={game.id}
-          className={styles.game}
+          className="p-2 flex items-center gap-4 rounded-md bg-secondary"
         >
-          <Typography
-            variant="h4"
-            className={cx(styles.count, styles.board)}
-          >
-            {index + 1}
-          </Typography>
-          <div className={styles.username}>
-            <Avatar
-              size={32}
-              text={game.user}
-              className={styles.avatar}
-            >
-              {(game.username || game.user).charAt(0)}
+          <Badge>{index + 1}</Badge>
+          <div className="flex items-center gap-2 overflow-hidden">
+            <Avatar className="h-6 w-6">
+              <AvatarFallback className="bg-background">{(game.username || game.user).charAt(0)}</AvatarFallback>
             </Avatar>
-            <Typography variant="h4">{game.username}</Typography>
-            {game.user === user?.uid && (
-              <Typography
-                variant="h5"
-                color="grey"
-              >
-                (You)
-              </Typography>
-            )}
+            <p className="font-semibold text-ellipsis overflow-hidden">{game.username}</p>
+            {game.user === user?.uid && <p className="text-sm text-slate-300">(You)</p>}
           </div>
-          <Typography
-            variant="h4"
-            className={styles.score}
-          >
-            {game.score.toLocaleString()} pts
-          </Typography>
+          <p className="ml-auto shrink-0 font-semibold">{game.score.toLocaleString()} pts</p>
         </div>
       ))}
       {!leaderboard.length && !isLoading && (
-        <Typography
-          variant="h3"
-          color="grey"
-        >
-          There are no Games yet.
-        </Typography>
+        <h3 className="text-xl font-semibold text-slate-300">There are no Games yet.</h3>
       )}
     </div>
   )
