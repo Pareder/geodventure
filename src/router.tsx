@@ -1,4 +1,5 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom'
+
 import CheckAccess, { access } from './common/access'
 import AppLayout from './layouts/AppLayout'
 import AuthLayout from './layouts/AuthLayout'

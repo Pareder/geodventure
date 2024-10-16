@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { AdvancedMarker, Map, MapMouseEvent, Pin, useMap } from '@vis.gl/react-google-maps'
+
 import { formatDistance } from 'common/utils/distance'
+
 import { COORDINATES } from './consts'
 
 type SmallMapProps = {

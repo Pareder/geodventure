@@ -1,5 +1,6 @@
 import { GameType } from 'types'
 import Icon from 'common/components/Icon'
+
 import StatisticBlock from './StatisticBlock'
 import { getStreak, getTotalScore } from './utils'
 

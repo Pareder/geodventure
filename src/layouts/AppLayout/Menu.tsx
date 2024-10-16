@@ -1,6 +1,7 @@
 import { ExitIcon, PersonIcon } from '@radix-ui/react-icons'
 import { signOut } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
+
 import { useAuth } from 'common/services/auth'
 import { auth } from 'common/services/firebase'
 import { Avatar, AvatarFallback } from 'common/ui/avatar'

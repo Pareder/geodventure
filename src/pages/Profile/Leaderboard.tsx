@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
+
+import { GameType } from 'types'
 import Loader from 'common/components/Loader'
 import { useAuth } from 'common/services/auth'
 import { Avatar, AvatarFallback } from 'common/ui/avatar'
 import { Badge } from 'common/ui/badge'
-import { GameType } from 'types'
+
 import { getLeaderboard } from './utils'
 
 export default function Leaderboard() {

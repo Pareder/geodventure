@@ -6,16 +6,18 @@ import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { toast } from 'sonner'
 import { z } from 'zod'
+
+import { auth } from 'common/services/firebase'
 import { Alert, AlertDescription, AlertTitle } from 'common/ui/alert'
 import { Button, buttonVariants } from 'common/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'common/ui/form'
 import { Input, PasswordInput } from 'common/ui/input'
-import { auth } from 'common/services/firebase'
 import cx from 'common/utils/classnames'
+
 import formSchema from './formSchema'
-import createUser from '../utils/createUser'
 import GithubSignup from '../components/GithubSignup'
 import GoogleSignup from '../components/GoogleSignup'
+import createUser from '../utils/createUser'
 
 type FormValues = z.infer<typeof formSchema>
 

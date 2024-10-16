@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
-import StreetMap from 'common/components/StreetMap'
+
 import CheckAccess, { access } from 'common/access'
+import StreetMap from 'common/components/StreetMap'
 import { buttonVariants } from 'common/ui/button'
 
 export default function Home() {

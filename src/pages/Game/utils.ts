@@ -1,4 +1,5 @@
 import { addDoc, collection } from 'firebase/firestore'
+
 import { auth, firestore } from 'common/services/firebase'
 
 export function calculateScore(distance: number) {

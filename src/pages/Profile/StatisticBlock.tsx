@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+
 import Loader from 'common/components/Loader'
 
 type StatisticBlockProps = {

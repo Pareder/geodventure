@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
+
+import { GameType } from 'types'
 import { useAuth } from 'common/services/auth'
 import { Avatar, AvatarFallback } from 'common/ui/avatar'
-import { GameType } from 'types'
+
 import EditableName from './EditableName'
 import GamesHistory from './GamesHistory'
 import Leaderboard from './Leaderboard'

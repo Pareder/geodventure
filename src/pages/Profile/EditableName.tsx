@@ -3,6 +3,7 @@ import { CheckIcon, Cross2Icon, Pencil1Icon } from '@radix-ui/react-icons'
 import { updateProfile } from 'firebase/auth'
 import { doc, setDoc } from 'firebase/firestore'
 import { toast } from 'sonner'
+
 import { useAuth } from 'common/services/auth'
 import { auth, firestore } from 'common/services/firebase'
 import { Button } from 'common/ui/button'

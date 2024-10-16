@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
+
 import { useAuth } from 'common/services/auth'
 import { buttonVariants } from 'common/ui/button'
+
 import Menu from './Menu'
 
 const logo = new URL('/logo.svg', import.meta.url).href

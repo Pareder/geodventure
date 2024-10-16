@@ -1,4 +1,5 @@
 import { ComponentProps, FunctionComponent } from 'react'
+
 import DiamondIcon from './icons/diamond.svg?react'
 import DiamondsIcon from './icons/diamonds.svg?react'
 import FireIcon from './icons/fire.svg?react'

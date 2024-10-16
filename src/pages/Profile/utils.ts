@@ -1,7 +1,8 @@
 import dayjs from 'dayjs'
 import { collection, getDocs, limit, orderBy, query, where } from 'firebase/firestore'
-import { firestore } from 'common/services/firebase'
+
 import { GameType, UserType } from 'types'
+import { firestore } from 'common/services/firebase'
 
 export function getGames(id: string) {
   return getDocs(query(collection(firestore, 'games'), where('user', '==', id))).then((snapshot) => {

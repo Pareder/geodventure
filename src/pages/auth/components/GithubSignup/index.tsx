@@ -1,8 +1,10 @@
 import { ReactNode } from 'react'
-import { GithubAuthProvider, signInWithPopup } from 'firebase/auth'
 import { GitHubLogoIcon } from '@radix-ui/react-icons'
+import { GithubAuthProvider, signInWithPopup } from 'firebase/auth'
+
 import { auth } from 'common/services/firebase'
 import { Button, ButtonProps } from 'common/ui/button'
+
 import createUser from '../../utils/createUser'
 
 type GoogleSignupProps = ButtonProps & {

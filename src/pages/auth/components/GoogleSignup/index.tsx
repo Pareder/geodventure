@@ -1,8 +1,10 @@
 import { ReactNode } from 'react'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
-import { Button, ButtonProps } from 'common/ui/button'
+
 import Icon from 'common/components/Icon'
 import { auth } from 'common/services/firebase'
+import { Button, ButtonProps } from 'common/ui/button'
+
 import createUser from '../../utils/createUser'
 
 type GoogleSignupProps = ButtonProps & {

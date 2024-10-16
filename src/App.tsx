@@ -1,7 +1,9 @@
-import { RouterProvider } from 'react-router-dom'
 import { APIProvider } from '@vis.gl/react-google-maps'
+import { RouterProvider } from 'react-router-dom'
+
 import AuthProvider from 'common/services/auth'
 import { Toaster } from 'common/ui/sonner'
+
 import router from './router'
 
 export default function App() {

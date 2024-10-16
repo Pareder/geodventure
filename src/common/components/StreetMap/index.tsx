@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useApiIsLoaded } from '@vis.gl/react-google-maps'
+
 import { setStreetView } from './utils'
 
 type StreetMapProps = {

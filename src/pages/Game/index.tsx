@@ -1,13 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+
 import StreetMap from 'common/components/StreetMap'
 import { setStreetView } from 'common/components/StreetMap/utils'
 import { Button, buttonVariants } from 'common/ui/button'
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from 'common/ui/dialog'
 import { secondsToTime } from 'common/utils/time'
+
 import { MAX_ROUNDS, TIME } from './consts'
-import { calculateScore, saveScore } from './utils'
 import SmallMap from './SmallMap'
+import { calculateScore, saveScore } from './utils'
 
 export default function Game() {
   const [round, setRound] = useState(1)

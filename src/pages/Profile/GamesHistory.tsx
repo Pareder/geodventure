@@ -1,8 +1,9 @@
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
+
+import { GameType } from 'types'
 import Loader from 'common/components/Loader'
 import { Badge } from 'common/ui/badge'
-import { GameType } from 'types'
 
 dayjs.extend(localizedFormat)
 

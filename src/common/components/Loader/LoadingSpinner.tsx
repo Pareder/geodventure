@@ -1,4 +1,5 @@
 import { SVGProps } from 'react'
+
 import cx from 'common/utils/classnames'
 
 export interface LoadingSpinnerProps extends SVGProps<SVGSVGElement> {

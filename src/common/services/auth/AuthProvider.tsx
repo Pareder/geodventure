@@ -1,6 +1,8 @@
 import { ReactNode, useEffect, useState } from 'react'
 import { onAuthStateChanged, User } from 'firebase/auth'
+
 import Loader from 'common/components/Loader'
+
 import { auth } from '../firebase'
 import AuthContext from './AuthContext'
 
