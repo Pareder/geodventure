@@ -20,4 +20,14 @@ export default defineConfig({
     globals: true,
   },
   plugins: [react(), svgr()],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ['react-dom', 'react', 'react-router-dom'],
+          firebase: ['firebase/auth', 'firebase/firestore'],
+        },
+      },
+    },
+  },
 })
