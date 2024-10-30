@@ -8,6 +8,7 @@ import Login from './pages/auth/Login'
 import Signup from './pages/auth/Signup'
 import Game from './pages/Game'
 import Home from './pages/Home'
+import Online from './pages/Online'
 import Profile from './pages/Profile'
 
 const router = createBrowserRouter([
@@ -57,6 +58,17 @@ const router = createBrowserRouter([
             fallback={<Navigate to="/" />}
           >
             <Game />
+          </CheckAccess>
+        ),
+      },
+      {
+        path: 'online/:gameId',
+        element: (
+          <CheckAccess
+            access={access.F_PROTECTED}
+            fallback={<Navigate to="/" />}
+          >
+            <Online />
           </CheckAccess>
         ),
       },

@@ -9,3 +9,13 @@ export function getRandomLatLng(): google.maps.LatLngLiteral {
     lng: getRandomNumber(-180, 180, 6),
   }
 }
+
+export function getRandomString(length: number) {
+  let result = ''
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+  const charactersLength = characters.length
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength))
+  }
+  return result
+}

@@ -4,11 +4,13 @@ import CheckAccess, { access } from 'common/access'
 import StreetMap from 'common/components/StreetMap'
 import { buttonVariants } from 'common/ui/button'
 
+import OnlineDialog from './OnlineDialog'
+
 export default function Home() {
   return (
     <>
       <StreetMap />
-      <div className="absolute z-10 top-4 left-1/2 -translate-x-1/2">
+      <div className="absolute z-10 top-4 left-1/2 -translate-x-1/2 w-full max-w-sm flex gap-4 [&>*]:flex-1 p-2 border bg-background rounded-md">
         <CheckAccess
           access={access.F_PROTECTED}
           fallback={
@@ -22,10 +24,11 @@ export default function Home() {
         >
           <Link
             to="/game"
-            className={buttonVariants({ variant: 'secondary', size: 'lg' })}
+            className={buttonVariants({ size: 'lg' })}
           >
             Play
           </Link>
+          <OnlineDialog />
         </CheckAccess>
       </div>
     </>
