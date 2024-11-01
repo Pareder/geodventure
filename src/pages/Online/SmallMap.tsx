@@ -33,10 +33,10 @@ export default function SmallMap({ coordinates, answers, loading, onClick, onNex
 
   useEffect(() => {
     if (!areMarkersVisible) {
+      setClickedCoordinates(undefined)
       return
     }
 
-    setClickedCoordinates(undefined)
     const minDistanceIndex = answers?.reduce(
       (res, answer, index) => (answer.distance < answers[res].distance ? index : res),
       0,
