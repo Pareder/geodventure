@@ -5,17 +5,17 @@ import { Link, useParams } from 'react-router-dom'
 import CopyButton from 'common/components/CopyButton'
 import Loader from 'common/components/Loader'
 import StreetMap from 'common/components/StreetMap'
-import { getStreetView, setStreetView } from 'common/components/StreetMap/utils'
+import { getStreetView } from 'common/components/StreetMap/utils'
 import { MAX_ROUNDS, TIME } from 'common/consts/game'
 import { useAuth } from 'common/services/auth'
+import { Button, buttonVariants } from 'common/ui/button'
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from 'common/ui/dialog'
 import { secondsToTime } from 'common/utils/time'
 
 import sendMessage from './sendMessage'
 import SmallMap from './SmallMap'
 import UsersScore from './UsersScore'
 import { GameMessage, MessageType, ServerMessage } from '../../../global'
-import { Button, buttonVariants } from '../../common/ui/button.tsx'
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '../../common/ui/dialog.tsx'
 
 export default function Online() {
   const [timer, setTimer] = useState(TIME)
@@ -62,7 +62,6 @@ export default function Online() {
 
       if (!data.is_final) {
         setTimer(TIME)
-        setStreetView(data.coordinates)
         timerInterval.current = setInterval(() => {
           setTimer((timer) => {
             if (timer === 0) {
@@ -121,7 +120,10 @@ export default function Online() {
           className="mt-2 ml-2"
         />
       </div>
-      <StreetMap skipOnInit />
+      <StreetMap
+        skipOnInit
+        coordinates={game?.coordinates}
+      />
       <SmallMap
         coordinates={game?.coordinates}
         answers={game?.answers}

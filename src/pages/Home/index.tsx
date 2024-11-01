@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import CheckAccess, { access } from 'common/access'
@@ -7,9 +8,14 @@ import { buttonVariants } from 'common/ui/button'
 import OnlineDialog from './OnlineDialog'
 
 export default function Home() {
+  const [coordinates, setCoordinates] = useState<google.maps.LatLngLiteral>()
+
   return (
     <>
-      <StreetMap />
+      <StreetMap
+        coordinates={coordinates}
+        setCoordinates={setCoordinates}
+      />
       <div className="absolute z-10 top-4 left-1/2 -translate-x-1/2 w-full max-w-sm flex gap-4 [&>*]:flex-1 p-2 border bg-background rounded-md">
         <CheckAccess
           access={access.F_PROTECTED}

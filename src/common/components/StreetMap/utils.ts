@@ -32,10 +32,3 @@ export function setStreetView(position: google.maps.LatLngLiteral) {
   })
   map.setStreetView(panorama)
 }
-
-export function getSetStreetView(callback?: Callback) {
-  getStreetView((position) => {
-    callback?.(position)
-    setStreetView(position)
-  })
-}

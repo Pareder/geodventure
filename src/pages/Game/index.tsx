@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import StreetMap from 'common/components/StreetMap'
-import { getSetStreetView } from 'common/components/StreetMap/utils'
+import { getStreetView } from 'common/components/StreetMap/utils'
 import { MAX_ROUNDS, TIME } from 'common/consts/game'
 import { Button, buttonVariants } from 'common/ui/button'
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from 'common/ui/dialog'
@@ -29,7 +29,7 @@ export default function Game() {
         return round
       }
 
-      getSetStreetView(setCoordinates)
+      getStreetView(setCoordinates)
       return round + 1
     })
   }
@@ -49,7 +49,7 @@ export default function Game() {
     setRound(1)
     setTimer(TIME)
     setScore(0)
-    getSetStreetView(setCoordinates)
+    getStreetView(setCoordinates)
   }
 
   useEffect(() => {
@@ -89,7 +89,10 @@ export default function Game() {
         <br />
         <span className="text-2xl font-semibold">{score}</span>
       </div>
-      <StreetMap setCoordinates={setCoordinates} />
+      <StreetMap
+        coordinates={coordinates}
+        setCoordinates={setCoordinates}
+      />
       <SmallMap
         key={round}
         coordinates={coordinates}
