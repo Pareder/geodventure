@@ -116,6 +116,11 @@ export default async function handler(req: Request) {
         await channel.publish(body.id, { type: MessageType.GAME, ...game })
       }
     }
+
+    if (body.type === MessageType.LEAVE) {
+      await docRef.delete()
+      await channel.publish(body.id, { type: MessageType.USER_LEFT })
+    }
   } catch (err) {
     ably.close()
     return makeResponse(

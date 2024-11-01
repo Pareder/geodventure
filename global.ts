@@ -5,7 +5,9 @@ export enum MessageType {
   CLICK = 'click',
   NEXT = 'next',
   RESTART = 'restart',
-  GAME = 'game'
+  LEAVE = 'leave',
+  GAME = 'game',
+  USER_LEFT = 'user_left'
 }
 
 export type InitMessage = {
@@ -42,7 +44,13 @@ export type RestartMessage = {
   coordinates?: google.maps.LatLngLiteral
 }
 
-export type ClientMessage = (InitMessage | UpdateCoordinatesMessage | ClickMessage | NextMessage | RestartMessage) & {
+export type LeaveMessage = {
+  type: MessageType.LEAVE
+}
+
+export type ClientMessage =
+  (InitMessage | UpdateCoordinatesMessage | ClickMessage | NextMessage | RestartMessage | LeaveMessage)
+  & {
   id: string
 }
 
@@ -65,4 +73,8 @@ export type GameMessage = {
   answers: OnlineAnswer[]
 }
 
-export type ServerMessage = CoordinatesRequestMessage | GameMessage
+export type UserLeftMessage = {
+  type: MessageType.USER_LEFT
+}
+
+export type ServerMessage = CoordinatesRequestMessage | GameMessage | UserLeftMessage

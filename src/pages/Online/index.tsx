@@ -9,7 +9,7 @@ import { getStreetView } from 'common/components/StreetMap/utils'
 import { MAX_ROUNDS, TIME } from 'common/consts/game'
 import { useAuth } from 'common/services/auth'
 import { Button, buttonVariants } from 'common/ui/button'
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from 'common/ui/dialog'
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from 'common/ui/dialog'
 import { secondsToTime } from 'common/utils/time'
 
 import sendMessage from './sendMessage'
@@ -22,6 +22,7 @@ export default function Online() {
   const [game, setGame] = useState<GameMessage>()
   const [nextLoading, setNextLoading] = useState(false)
   const [restartLoading, setRestartLoading] = useState(false)
+  const [userLeft, setUserLeft] = useState(false)
   const timerInterval = useRef<NodeJS.Timeout>()
   const { gameId = '' } = useParams()
   const { user } = useAuth()
@@ -91,12 +92,24 @@ export default function Online() {
         }, 1000)
       }
     }
+
+    if (data.type === MessageType.USER_LEFT) {
+      setUserLeft(true)
+      clearInterval(timerInterval.current)
+    }
   })
 
   useEffect(() => {
     sendMessage({ id: gameId, type: MessageType.INIT, uid: user!.uid, name: user!.displayName! })
 
-    return () => clearInterval(timerInterval.current)
+    const onLeave = () => sendMessage({ id: gameId, type: MessageType.LEAVE })
+    window.addEventListener('beforeunload', onLeave)
+
+    return () => {
+      clearInterval(timerInterval.current)
+      window.removeEventListener('beforeunload', onLeave)
+      onLeave()
+    }
   }, [])
 
   if (!game?.users?.length) {
@@ -148,8 +161,24 @@ export default function Online() {
         onClick={handleMapClick}
         onNext={handleNext}
       />
+      <Dialog open={userLeft}>
+        <DialogContent withClose={false}>
+          <DialogHeader>
+            <DialogTitle>Opponent left the game</DialogTitle>
+            <DialogDescription>Your opponent has disconnected and is no longer active in the game.</DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Link
+              to="/"
+              className={buttonVariants({ variant: 'outline' })}
+            >
+              Home
+            </Link>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
       <Dialog open={game?.is_final}>
-        <DialogContent>
+        <DialogContent withClose={false}>
           <DialogHeader>
             <DialogTitle>Final results</DialogTitle>
           </DialogHeader>
