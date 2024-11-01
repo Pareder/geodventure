@@ -1,6 +1,6 @@
 import { APIProvider } from '@vis.gl/react-google-maps'
 import * as Ably from 'ably'
-import { AblyProvider } from 'ably/react'
+import { AblyProvider, ChannelProvider } from 'ably/react'
 import { RouterProvider } from 'react-router-dom'
 
 import AuthProvider from 'common/services/auth'
@@ -18,9 +18,11 @@ export default function App() {
     <>
       <APIProvider apiKey={import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY}>
         <AblyProvider client={ably}>
-          <AuthProvider>
-            <RouterProvider router={router} />
-          </AuthProvider>
+          <ChannelProvider channelName="game">
+            <AuthProvider>
+              <RouterProvider router={router} />
+            </AuthProvider>
+          </ChannelProvider>
         </AblyProvider>
       </APIProvider>
       <Toaster position="top-right" />

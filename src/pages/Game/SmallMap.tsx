@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import { AdvancedMarker, Map, MapMouseEvent, Pin, useMap } from '@vis.gl/react-google-maps'
 
+import { COORDINATES } from 'common/consts/game'
 import { formatDistance } from 'common/utils/distance'
-
-import { COORDINATES } from './consts'
 
 type SmallMapProps = {
   coordinates?: google.maps.LatLngLiteral

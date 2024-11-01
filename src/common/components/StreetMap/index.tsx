@@ -1,19 +1,20 @@
 import { useEffect } from 'react'
 import { useApiIsLoaded } from '@vis.gl/react-google-maps'
 
-import { setStreetView } from './utils'
+import { getSetStreetView } from './utils'
 
 type StreetMapProps = {
+  skipOnInit?: boolean
   setCoordinates?: (coords: google.maps.LatLngLiteral) => void
 }
 
-export default function StreetMap({ setCoordinates }: StreetMapProps) {
+export default function StreetMap({ skipOnInit, setCoordinates }: StreetMapProps) {
   const isLoaded = useApiIsLoaded()
 
   useEffect(() => {
-    if (!isLoaded) return
-    setStreetView(setCoordinates)
-  }, [isLoaded])
+    if (!isLoaded || skipOnInit) return
+    getSetStreetView(setCoordinates)
+  }, [isLoaded, skipOnInit])
 
   return (
     <div
