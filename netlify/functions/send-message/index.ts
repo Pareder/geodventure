@@ -71,7 +71,7 @@ export default async function handler(req: Request) {
         const answers = [...game.answers, {
           uid: body.uid,
           username: body.username,
-          coordinates: body.coordinates,
+          coordinates: body.coordinates || null,
           distance: body.distance,
         }]
         const isFinal = game.round === MAX_ROUNDS
