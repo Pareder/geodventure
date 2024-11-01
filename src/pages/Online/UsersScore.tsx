@@ -9,14 +9,15 @@ type UsersScoreProps = {
 }
 
 export default function UsersScore({ className, users }: UsersScoreProps) {
-  const maxScoreIndex = users?.reduce((res, user, index) => (user.score > users[res].score ? index : res), 0)
+  const maxScore = users?.reduce((res, user) => (user.score > res ? user.score : res), 0)
+  const maxScoreOccurrences = users?.filter((user) => user.score === maxScore).length
 
-  return users.map(({ id, name, score }, index) => (
+  return users.map(({ id, name, score }) => (
     <div
       key={id}
       className={cx(
-        'p-2 flex items-center gap-4 rounded-md',
-        index === maxScoreIndex ? 'bg-green-950' : 'bg-red-950',
+        'p-2 flex items-center gap-4 rounded-md bg-secondary',
+        maxScoreOccurrences === 1 ? (score === maxScore ? 'bg-green-950' : 'bg-red-950') : '',
         className,
       )}
     >
