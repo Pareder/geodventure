@@ -20,7 +20,8 @@ import { GameMessage, MessageType, ServerMessage } from '../../../global'
 export default function Online() {
   const [timer, setTimer] = useState(TIME)
   const [game, setGame] = useState<GameMessage>()
-  const [loading, setLoading] = useState(false)
+  const [nextLoading, setNextLoading] = useState(false)
+  const [restartLoading, setRestartLoading] = useState(false)
   const timerInterval = useRef<NodeJS.Timeout>()
   const { gameId = '' } = useParams()
   const { user } = useAuth()
@@ -38,14 +39,29 @@ export default function Online() {
   }
 
   const handleNext = () => {
-    setLoading(true)
+    setNextLoading(true)
     if (user?.uid === game?.users[0].id) {
       return getStreetView((coordinates) => {
-        sendMessage({ id: gameId, type: MessageType.NEXT, uid: user!.uid!, coordinates }).catch(() => setLoading(false))
+        sendMessage({ id: gameId, type: MessageType.NEXT, uid: user!.uid!, coordinates }).catch(() =>
+          setNextLoading(false),
+        )
       })
     }
 
-    sendMessage({ id: gameId, type: MessageType.NEXT, uid: user!.uid! }).catch(() => setLoading(false))
+    sendMessage({ id: gameId, type: MessageType.NEXT, uid: user!.uid! }).catch(() => setNextLoading(false))
+  }
+
+  const handleRestart = () => {
+    setRestartLoading(true)
+    if (user?.uid === game?.users[0].id) {
+      return getStreetView((coordinates) => {
+        sendMessage({ id: gameId, type: MessageType.RESTART, uid: user!.uid!, coordinates }).catch(() =>
+          setRestartLoading(false),
+        )
+      })
+    }
+
+    sendMessage({ id: gameId, type: MessageType.RESTART, uid: user!.uid! }).catch(() => setRestartLoading(false))
   }
 
   useChannel('game', gameId, (message) => {
@@ -58,7 +74,8 @@ export default function Online() {
 
     if (data.type === MessageType.GAME) {
       setGame(data)
-      setLoading(false)
+      setNextLoading(false)
+      setRestartLoading(false)
 
       if (!data.is_final && data.round !== game?.round) {
         setTimer(TIME)
@@ -127,7 +144,7 @@ export default function Online() {
       <SmallMap
         coordinates={game?.coordinates}
         answers={game?.answers}
-        loading={loading}
+        loading={nextLoading}
         onClick={handleMapClick}
         onNext={handleNext}
       />
@@ -146,7 +163,8 @@ export default function Online() {
             </Link>
             <Button
               variant="default"
-              disabled
+              loading={restartLoading}
+              onClick={handleRestart}
             >
               Play again
             </Button>

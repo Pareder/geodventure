@@ -97,6 +97,25 @@ export default async function handler(req: Request) {
         await channel.publish(body.id, { type: MessageType.GAME, ...game })
       }
     }
+
+    if (body.type === MessageType.RESTART) {
+      const game = await firestore.runTransaction<Game>(async (transaction) => {
+        const doc = await transaction.get(docRef)
+        const game = doc.data() as Game
+        const newGame = {
+          round: 1,
+          is_final: false,
+          users: game.users.map((user) => user.id === body.uid ? { ...user, score: 0 } : user),
+          answers: game.answers.filter((answer) => answer.uid !== body.uid),
+          coordinates: body.coordinates ? body.coordinates : game.coordinates,
+        }
+        transaction.update(docRef, newGame)
+        return newGame
+      })
+      if (game?.answers.length === 0) {
+        await channel.publish(body.id, { type: MessageType.GAME, ...game })
+      }
+    }
   } catch (err) {
     ably.close()
     return makeResponse(

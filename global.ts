@@ -4,6 +4,7 @@ export enum MessageType {
   UPDATE_COORDINATES = 'update_coordinates',
   CLICK = 'click',
   NEXT = 'next',
+  RESTART = 'restart',
   GAME = 'game'
 }
 
@@ -35,7 +36,13 @@ export type NextMessage = {
   coordinates?: google.maps.LatLngLiteral
 }
 
-export type ClientMessage = (InitMessage | UpdateCoordinatesMessage | ClickMessage | NextMessage) & {
+export type RestartMessage = {
+  type: MessageType.RESTART
+  uid: string
+  coordinates?: google.maps.LatLngLiteral
+}
+
+export type ClientMessage = (InitMessage | UpdateCoordinatesMessage | ClickMessage | NextMessage | RestartMessage) & {
   id: string
 }
 
