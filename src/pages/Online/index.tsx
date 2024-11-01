@@ -63,16 +63,16 @@ export default function Online() {
       if (!data.is_final) {
         setTimer(TIME)
         setStreetView(data.coordinates)
-        // timerInterval.current = setInterval(() => {
-        //   setTimer((timer) => {
-        //     if (timer === 0) {
-        //       handleMapClick({ distance: Number.MAX_SAFE_INTEGER })
-        //       return timer
-        //     }
-        //
-        //     return timer - 1
-        //   })
-        // }, 1000)
+        timerInterval.current = setInterval(() => {
+          setTimer((timer) => {
+            if (timer === 0) {
+              handleMapClick({ distance: Number.MAX_SAFE_INTEGER })
+              return timer
+            }
+
+            return timer - 1
+          })
+        }, 1000)
       }
     }
   })
@@ -116,7 +116,10 @@ export default function Online() {
       <div className="absolute z-10 top-4 right-0 p-2 pl-0 bg-background text-right">
         <div className="absolute -z-10 top-0 bottom-0 -left-4 right-0 skew-x-12 bg-background rounded-md" />
         <p className="text-slate-300 text-sm">Score</p>
-        <UsersScore users={game?.users} />
+        <UsersScore
+          users={game?.users}
+          className="mt-2 ml-2"
+        />
       </div>
       <StreetMap skipOnInit />
       <SmallMap
