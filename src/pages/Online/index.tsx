@@ -60,7 +60,7 @@ export default function Online() {
       setGame(data)
       setLoading(false)
 
-      if (!data.is_final) {
+      if (!data.is_final && data.round !== game?.round) {
         setTimer(TIME)
         timerInterval.current = setInterval(() => {
           setTimer((timer) => {
