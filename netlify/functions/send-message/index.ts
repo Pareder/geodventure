@@ -2,6 +2,7 @@ import { Config } from '@netlify/functions'
 import * as Ably from 'ably'
 import { FieldValue } from 'firebase-admin/firestore'
 
+import { USERS_LIMIT } from './consts'
 import { ClientMessage, GameMessage, MessageType } from '../../../global'
 import { MAX_ROUNDS } from '../../../src/common/consts/game'
 import { calculateScore } from '../../../src/common/utils/game'
@@ -45,7 +46,7 @@ export default async function handler(req: Request) {
       if (!game.coordinates) {
         await channel.publish(body.id, { type: MessageType.COORDINATES_REQUEST })
       }
-      if (game?.users.length === 2) {
+      if (game?.users.length === USERS_LIMIT) {
         await channel.publish(body.id, { type: MessageType.GAME, ...game })
       }
     }
@@ -78,7 +79,7 @@ export default async function handler(req: Request) {
         transaction.update(docRef, { users, answers, is_final: isFinal })
         return { ...game, users, answers }
       })
-      if (game?.answers.length === 2) {
+      if (game?.answers.length === USERS_LIMIT) {
         await channel.publish(body.id, { type: MessageType.GAME, ...game })
       }
     }
