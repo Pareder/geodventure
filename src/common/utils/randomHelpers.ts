@@ -3,10 +3,20 @@ export function getRandomNumber(from: number, to: number, fixed?: number) {
   return fixed !== undefined ? +number.toFixed(fixed) : number
 }
 
+const continentBounds = [
+  { name: 'North America', latRange: [5, 84], lngRange: [-168, -52] },
+  { name: 'South America', latRange: [-56, 13], lngRange: [-81, -34] },
+  { name: 'Europe', latRange: [36, 71], lngRange: [-25, 40] },
+  { name: 'Africa', latRange: [-35, 37], lngRange: [-17, 51] },
+  { name: 'Asia', latRange: [0, 77], lngRange: [26, 180] },
+  { name: 'Australia', latRange: [-47, 0], lngRange: [100, 179] },
+]
+
 export function getRandomLatLng(): google.maps.LatLngLiteral {
+  const continent = continentBounds[getRandomNumber(0, continentBounds.length - 1, 0)]
   return {
-    lat: getRandomNumber(-90, 90, 6),
-    lng: getRandomNumber(-180, 180, 6),
+    lat: getRandomNumber(continent.latRange[0], continent.latRange[1], 6),
+    lng: getRandomNumber(continent.lngRange[0], continent.lngRange[1], 6),
   }
 }
 
