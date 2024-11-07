@@ -27,7 +27,15 @@ export default function Online() {
   const { gameId = '' } = useParams()
   const { user } = useAuth()
 
-  const handleMapClick = ({ coordinates, distance }: { coordinates?: google.maps.LatLngLiteral; distance: number }) => {
+  const handleMapClick = ({
+    coordinates,
+    distance,
+    hint,
+  }: {
+    coordinates?: google.maps.LatLngLiteral
+    distance: number
+    hint?: boolean
+  }) => {
     clearInterval(timerInterval.current)
     sendMessage({
       id: gameId,
@@ -36,6 +44,7 @@ export default function Online() {
       username: user!.displayName!,
       coordinates,
       distance,
+      hint,
     })
   }
 

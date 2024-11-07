@@ -66,7 +66,7 @@ export default async function handler(req: Request) {
 
           return {
             ...user,
-            score: user.score + calculateScore(body.distance),
+            score: user.score + Math.round(calculateScore(body.distance) / (body.hint ? 2 : 1)),
           }
         })
         const answers = [...game.answers, {

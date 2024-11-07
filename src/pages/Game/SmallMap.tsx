@@ -36,7 +36,7 @@ export default function SmallMap({ coordinates, onClick }: SmallMapProps) {
   const handleHint = () => {
     setHintUsed(true)
     const radius = 5000000
-    new google.maps.Circle({
+    const circle = new google.maps.Circle({
       strokeColor: '#2662D9',
       fillColor: '#2662D9',
       fillOpacity: 0.35,
@@ -45,6 +45,7 @@ export default function SmallMap({ coordinates, onClick }: SmallMapProps) {
       radius,
       clickable: false,
     })
+    map?.fitBounds(circle.getBounds()!)
   }
 
   return (
@@ -54,6 +55,7 @@ export default function SmallMap({ coordinates, onClick }: SmallMapProps) {
       className="absolute bottom-4 left-4 z-10 w-[500px] h-[300px] hover:w-[700px] hover:h-[500px] rounded-md overflow-hidden transition-all"
       defaultCenter={COORDINATES}
       defaultZoom={2}
+      minZoom={2}
       disableDefaultUI
       onClick={handleClick}
     >

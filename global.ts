@@ -30,6 +30,7 @@ export type OnlineAnswer = {
 
 export type ClickMessage = OnlineAnswer & {
   type: MessageType.CLICK
+  hint?: boolean
 }
 
 export type NextMessage = {
