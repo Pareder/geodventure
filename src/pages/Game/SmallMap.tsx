@@ -55,7 +55,6 @@ export default function SmallMap({ coordinates, onClick }: SmallMapProps) {
       className="absolute bottom-4 left-4 z-10 w-[500px] h-[300px] hover:w-[700px] hover:h-[500px] rounded-md overflow-hidden transition-all"
       defaultCenter={COORDINATES}
       defaultZoom={2}
-      minZoom={2}
       disableDefaultUI
       onClick={handleClick}
     >
