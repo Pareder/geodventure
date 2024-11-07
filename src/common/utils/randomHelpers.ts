@@ -20,6 +20,21 @@ export function getRandomLatLng(): google.maps.LatLngLiteral {
   }
 }
 
+export function getLatLngRandomOffset(coordinates: google.maps.LatLngLiteral, radius: number) {
+  const DEGREE_IN_METERS = 111320
+  const maxOffset = radius * 0.5
+  const offsetDistance = Math.random() * maxOffset
+  const offsetAngle = Math.random() * 2 * Math.PI
+
+  const offsetLat = (offsetDistance / DEGREE_IN_METERS) * Math.cos(offsetAngle)
+  const offsetLng = (offsetDistance / (DEGREE_IN_METERS * Math.cos(coordinates.lat))) * Math.sin(offsetAngle)
+
+  return {
+    lat: coordinates.lat + offsetLat,
+    lng: coordinates.lng + offsetLng,
+  }
+}
+
 export function getRandomString(length: number) {
   let result = ''
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'

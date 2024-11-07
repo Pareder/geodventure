@@ -34,8 +34,8 @@ export default function Game() {
     })
   }
 
-  const handleClick = (distance: number) => {
-    const newScore = score + calculateScore(distance)
+  const handleClick = (distance: number, hintUsed?: boolean) => {
+    const newScore = score + Math.round(calculateScore(distance) / (hintUsed ? 2 : 1))
     setScore(newScore)
     clearInterval(timerInterval.current)
     pauseTimeout.current = setTimeout(() => {
